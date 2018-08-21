@@ -414,3 +414,5 @@
             (setq flycheck-check-syntax-automatically '(save mode-enabled))
             (eldoc-mode t)
             (company-mode-on)))
+
+(define-key dired-mode-map (kbd "C-x e") (quote wdired-change-to-wdired-mode))
