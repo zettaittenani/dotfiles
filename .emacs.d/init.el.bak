@@ -1,190 +1,91 @@
-(defvar gnu-url          "http://elpa.gnu.org/packages/")
-(defvar melpa-url        "http://melpa.org/packages/")
-(defvar melpa-stable-url "http://stable.melpa.org/packages/")
-(defvar org-url          "http://orgmode.org/elpa/")
-;; (defvar marmalade-url "http://marmalade-repo.org/packages/")
-
-(defvar use-package-list
-  '(
-    init-loader
-    all-the-icons-ivy
-    auto-highlight-symbol
-    company
-    counsel
-    counsel-etags
-    ctags-update
-    exec-path-from-shell
-    flycheck
-    flycheck-golangci-lint
-    flycheck-rust
-    go-mode
-    js2-highlight-vars
-    js2-mode
-    js2-refactor
-    magit
-    markdown-mode
-    multiple-cursors
-    package-utils
-    racer
-    undo-tree
-    web-mode
-    all-the-icons
-    async
-    bind-key
-    dash
-    epl
-    f
-    ghub
-    git-commit
-    ivy
-    magit-popup
-    memoize
-    pkg-info
-    pos-tip
-    restart-emacs
-    rust-mode
-    s
-    swiper
-    use-package
-    with-editor
-    yasnippet
-    scala-mode
-    ruby-block
-    org-tree-slide
-    foreign-regexp
-    ruby-additional
-    )
-)
-
 (require 'package)
-(add-to-list 'package-archives '("gnu"          . gnu-url)          t)
-(add-to-list 'package-archives '("melpa"        . melpa-url)        t)
-(add-to-list 'package-archives '("melpa-stable" . melpa-stable-url) t)
-(add-to-list 'package-archives '("org"          . org-url)          t)
+(add-to-list 'package-archives '("gnu"          . "http://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives '("melpa"        . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("marmalade"    . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("org"          . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
-;;; 未インストールのパッケージを探す
-(require 'cl)
-(let ((not-installed
-       (loop for x in use-package-list
-             when (not (package-installed-p x)) collect x)))
-  (when not-installed
-    (package-refresh-contents)
-    (dolist
-        (pkg not-installed)
-        (package-install pkg))))
-
-;;; 各パッケージの設定ファイルはinits以下に置く．init-loaderがそれを読み込む
-;;; ファイル命名規則が存在する (例 : 10-hoge.el)
-(when (require 'init-loader nil t)
-  (setq init-loader-show-log-after-init 'error-only)
-  (when (file-directory-p (symbol-value 'hp-inits-dir))
-    (init-loader-load hp-inits-dir)))
-
+;; Language settings
 (set-locale-environment nil)
 (set-language-environment "Japanese")
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (prefer-coding-system 'utf-8)
+(exec-path-from-shell-initialize)
 
-(unless (require 'use-package nil t)
-  (defmacro use-package (&rest args)))
+;; Common settings
+(setq inhibit-startup-message t)
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+(setq delete-auto-save-files t)
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Keyboard settings
+(defun forward-word+1 ()
+  (interactive)
+  (forward-word)
+  (forward-char))
+(define-key global-map (kbd "M-f") 'forward-word+1)
+(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
+(define-key global-map (kbd "C-z") 'undo)
+
+(setq kill-whole-line t)
+(setq-default tab-width 2 indent-tabs-mode nil)
+(setq eol-mnemonic-dos "(CRLF)")
+(setq eol-mnemonic-mac "(CR)")
+(setq eol-mnemonic-unix "(LF)")
+(setq ns-pop-up-frames nil)
+
+;;
+(add-to-list 'default-frame-alist '(alpha . (0.85 0.85)))
+(menu-bar-mode -1)
+(column-number-mode t)
+(global-linum-mode t)
+(blink-cursor-mode 0)
+(show-paren-mode 1)
+(setq show-paren-style 'mixed)
+(setq scroll-conservatively 1)
+(setq scroll-margin 20)
+(setq next-screen-context-lines 10)
 
 ;; .rb ファイルの1行目にマジックコメントを自動挿入しない
 (setq ruby-insert-encoding-magic-comment nil)
 
-;; スタートアップメッセージを表示させない
-(setq inhibit-startup-message t)
-
-;; バックアップファイルを作成させない
-(setq make-backup-files nil)
-
-;; 終了時にオートセーブファイルを削除する
-(setq delete-auto-save-files t)
-
-;; タブにスペースを使用する
-(setq-default tab-width 2 indent-tabs-mode nil)
-
-;; 閉じ括弧を補完する
-(electric-pair-mode 1)
-
-;; 改行コードを表示する
-(setq eol-mnemonic-dos "(CRLF)")
-(setq eol-mnemonic-mac "(CR)")
-(setq eol-mnemonic-unix "(LF)")
-
-;; 複数ウィンドウを禁止する
-(setq ns-pop-up-frames nil)
-
-;; ウィンドウを透明にする
-;; アクティブウィンドウ／非アクティブウィンドウ（alphaの値で透明度を指定）
-(add-to-list 'default-frame-alist '(alpha . (0.85 0.85)))
-
-;; メニューバーを消す
-(menu-bar-mode -1)
-
-;; 列数を表示する
-(column-number-mode t)
-
-;; 行数を表示する
-(global-linum-mode t)
-(setq linum-format "%5d")
-(set-face-attribute 'linum nil
-                    :foreground "#a9a9a9"
-                    :height 0.9)
-
-;; カーソルの点滅をやめる
-(blink-cursor-mode t)
-
-;; Enable company-mode
-(global-company-mode 1)
-
-(use-package xclip)
 (use-package ruby-mode)
-(use-package slim-mode)
+(use-package go-mode)
+(use-package js2-mode)
+(use-package rust-mode)
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . gfm-mode)
+         ("\\.markdown\\'" . gfm-mode))
+  :init (setq markdown-command "multimarkdown"))
 
-(show-paren-mode 1)
-(setq show-paren-style 'mixed)
-(set-face-background 'show-paren-match-face "grey")
-(set-face-foreground 'show-paren-match-face "black")
-(setq scroll-conservatively 1)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+(add-hook 'go-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'gofmt-before-save)
+            (setq tab-width 4)
+            (setq indent-tabs-mode 1)))
+(add-hook 'gfm-mode-hook
+          '(lambda ()
+             (electric-indent-local-mode -1)))
 
-;; Set scroll margin
-(setq scroll-margin 20)
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode))
 
-;; Set screen context lines
-(setq next-screen-context-lines 5)
 
-;; C-kで行全体を削除する
-(setq kill-whole-line t)
-
-;;; dired設定
-(require 'dired-x)
-
-;; "yes or no" の選択を "y or n" にする
-(fset 'yes-or-no-p 'y-or-n-p)
-
-(require 'linum)
+(use-package dired-x)
+(use-package linum)
 (global-linum-mode)
 
-;; elisp 設定
-(add-to-list 'load-path "~/.emacs.d/elisp")
-                                        ;(require 'install-elisp)
-                                        ;(setq install-elisp-repository-directory "~/.emacs.d/elisp")
-
-                                        ;(require 'grep-edit)
-
-(setq load-path
-      (append '(
-                "~/.emacs.d/conf"
-                ) load-path))
-
-(load "font-init")     ;; フォントの設定
-(load "org-init")      ;; org-modeの設定
-(load "anything-init") ;; anything.elの設定
-
-(require 'ido)
+(use-package ido)
 (ido-mode t)
 
 (custom-set-faces
@@ -194,16 +95,8 @@
  ;; If there is more than one, they won't work right.
  )
 
-(tabbar-mode 1)
-(tabbar-mwheel-mode -1)
-(setq tabbar-buffer-groups-function nil)
-(setq tabbar-use-images nil)
-(global-set-key (kbd "M-<right>") 'tabbar-forward-tab)
-(global-set-key (kbd "M-<left>") 'tabbar-backward-tab)
-
-;; company 設定
-(require 'company)
-(global-company-mode) ; 全バッファで有効にする
+(use-package company)
+(global-company-mode)
 (setq company-idle-delay 0) ; デフォルトは0.5
 (setq company-minimum-prefix-length 2) ; デフォルトは4
 (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
@@ -234,8 +127,7 @@
       (company--insert-candidate2 company-common))))
 
 (define-key company-active-map [tab] 'company-complete-common2)
-(define-key company-active-map [backtab] 'company-select-previous) ; おまけ
-
+(define-key company-active-map [backtab] 'company-select-previous)
 
 (set-face-attribute 'company-tooltip nil
                     :foreground "black" :background "lightgrey")
@@ -253,7 +145,6 @@
                     :background "gray40")
 
 (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
-
 (global-set-key (kbd "C-M-i") 'company-complete)
 
 ;; C-n, C-pで補完候補を次/前の候補を選択
@@ -344,46 +235,14 @@
 (add-hook 'before-save-hook
           '(lambda ()
              (delete-trailing-whitespace)
-             (indent-region (point-min) (point-max))))
-
-;; get rid of backup files
-(setq make-backup-files nil)
-
-;; assign 'undo' to C-z
-(define-key global-map (kbd "C-z") 'undo)
-
-;; M-f で単語の直前ではなく単語の先頭にカーソルが来るようにする
-(defun forward-word+1 ()
-  (interactive)
-  (forward-word)
-  (forward-char))
-
-;; M-f が何故か効かないので苦肉の策
-(define-key global-map (kbd "C-M-f") 'forward-word+1)
+             ;; 行頭のスペースも消したい場合は (indent-region (point-min) (point-max))
+             (indent-region (point-max))
+             ))
 
 ;; magit shortcut
 (global-set-key (kbd "C-x g") 'magit-status)
 
-;; enable undo-tree
-(when (require 'undo-tree nil t)
-  (global-undo-tree-mode))
-
-;; enable js2-mode
-(require 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
-;; color-moccur  (ELPA)
-(require 'color-moccur)
-(global-set-key (kbd "M-o") 'occur-by-moccur)
-(setq moccur-split-word t)
-(setq moccur-use-migemo t)
-
-;; enable rust-mode
-(require 'rust-mode)
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-
-;; enable flycheck-rust
-(require 'flycheck-rust)
+(use-package flycheck-rust)
 
 ;; enable racer (rust_code_complete_plugin)
 (add-hook 'rust-mode-hook 'racer-mode)
@@ -407,14 +266,14 @@
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
 
-(require 'auto-highlight-symbol)
+(use-package auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
 
 (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
 (autoload 'robe-ac-setup "robe-ac" "robe auto-complete" nil nil)
 (add-hook 'robe-mode-hook 'robe-ac-setup)
 
-(require 'yasnippet)
+(use-package yasnippet)
 (yas/load-directory "~/.emacs.d/snippets")
 (yas-global-mode 1)
 
@@ -425,48 +284,23 @@
 ;; 既存スニペットを閲覧・編集する
 (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
 
-(require 'rubocop)
-(add-hook 'ruby-mode-hook 'rubocop-mode)
+(defun my-fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen 'fullboth) ;this makes the frame go fullscreen
+  (tool-bar-mode -1) ;these 3 lines turn off GUI junk
+  (scroll-bar-mode -1)
+  (menu-bar-mode -1))
 
-(flycheck-define-checker ruby-rubocop
-  "A Ruby syntax and style checker using the RuboCop tool."
-  :command ("rubocop" "--format" "emacs" "--silent"
-            (config-file "--config" flycheck-rubocoprc)
-            source)
-  :error-patterns
-  ((warning line-start
-            (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
-            line-end)
-   (error line-start
-          (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
-          line-end))
-  :modes (ruby-mode motion-mode))
+(defun my-non-fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'width 82)
+  (set-frame-parameter nil 'fullscreen 'fullheight)
+  (menu-bar-mode t)) ;I don't turn tool-bar and scroll-bar back on b/c I never want them
 
+(defun toggle-fullscreen ()
+  (interactive)
+  (if (eq (frame-parameter nil 'fullscreen) 'fullboth)  ;tests if already fullscreened
+      (my-non-fullscreen)
+    (my-fullscreen)))
 
-;; (require 'pry)
-;; optional suggestions
-;; (global-set-key [S-f9] 'pry-intercept)
-;; (global-set-key [f9] 'pry-intercept-rerun)
-
-(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
-
-(add-hook 'before-save-hook
-          '(lambda ()
-             (delete-trailing-whitespace)
-             (indent-region (point-min) (point-max))))
-
-;; enable typescript-mode
-(require 'typescript-mode)
-(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
-(setq typescript-indent-level 2)
-
-(require 'tide)
-(add-hook 'typescript-mode-hook
-          (lambda ()
-            (tide-setup)
-            (flycheck-mode t)
-            (setq flycheck-check-syntax-automatically '(save mode-enabled))
-            (eldoc-mode t)
-            (company-mode-on)))
-
-(define-key dired-mode-map (kbd "C-x e") (quote wdired-change-to-wdired-mode))
+(global-set-key (kbd "<f2>") 'toggle-fullscreen)
