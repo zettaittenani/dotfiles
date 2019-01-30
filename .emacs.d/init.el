@@ -1,3 +1,5 @@
+;;; my init.el
+
 (require 'package)
 (add-to-list 'package-archives '("gnu"          . "http://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("melpa"        . "http://melpa.org/packages/") t)
@@ -77,6 +79,16 @@
 (use-package flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
+(set-face-attribute 'flycheck-error nil
+                    :foreground "red"
+                    :background "#671232"
+                    :underline nil)
+
+(set-face-attribute 'flycheck-warning nil
+                    :foreground "yellow"
+                    :background nil
+                    :underline nil)
+
 (global-set-key (kbd "C-x n") 'flycheck-next-error)
 (global-set-key (kbd "C-x p") 'flycheck-previous-error)
 
@@ -106,6 +118,16 @@
 (use-package dockerfile-mode)
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 (use-package docker-compose-mode)
+(use-package yasnippet)
+(yas/load-directory "~/.emacs.d/snippets")
+(yas-global-mode 1)
+
+;; 既存スニペットを挿入する
+(define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
+;; 新規スニペットを作成するバッファを用意する
+(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+;; 既存スニペットを閲覧・編集する
+(define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
 
 (use-package undo-tree
   :config
@@ -174,24 +196,15 @@
 
 (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
 (global-set-key (kbd "C-M-i") 'company-complete)
-
-;; C-n, C-pで補完候補を次/前の候補を選択
 (define-key company-active-map (kbd "C-n") 'company-select-next)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
 (define-key company-search-map (kbd "C-n") 'company-select-next)
 (define-key company-search-map (kbd "C-p") 'company-select-previous)
-
-;; C-sで絞り込む
 (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
-
-;; TABで候補を設定
 (define-key company-active-map (kbd "C-i") 'company-complete-selection)
-
-;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
 (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
 
 (ivy-mode 1)
-
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
 (global-set-key "\C-s" 'swiper)
@@ -298,14 +311,3 @@
 (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
 (autoload 'robe-ac-setup "robe-ac" "robe auto-complete" nil nil)
 (add-hook 'robe-mode-hook 'robe-ac-setup)
-
-(use-package yasnippet)
-(yas/load-directory "~/.emacs.d/snippets")
-(yas-global-mode 1)
-
-;; 既存スニペットを挿入する
-(define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
-;; 新規スニペットを作成するバッファを用意する
-(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
-;; 既存スニペットを閲覧・編集する
-(define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
