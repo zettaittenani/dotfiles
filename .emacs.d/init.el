@@ -76,6 +76,10 @@
 
 (use-package flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
+(global-set-key (kbd "C-x n") 'flycheck-next-error)
+(global-set-key (kbd "C-x p") 'flycheck-previous-error)
+
 (use-package ruby-mode)
 (use-package go-mode)
 (use-package js2-mode)
@@ -288,11 +292,6 @@
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
-(autoload 'flycheck-mode "flycheck")
-(add-hook 'ruby-mode-hook 'flycheck-mode)
-(setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
-(global-set-key (kbd "C-x n") 'flycheck-next-error)
-(global-set-key (kbd "C-x p") 'flycheck-previous-error)
 
 (use-package auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
