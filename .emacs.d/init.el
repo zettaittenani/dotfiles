@@ -37,29 +37,7 @@
 (setq eol-mnemonic-unix "(LF)")
 (setq ns-pop-up-frames nil)
 
-;; if you use GUI
-;; (defun my-fullscreen ()
-;;   (interactive)
-;;   (set-frame-parameter nil 'fullscreen 'fullboth)
-;;   (tool-bar-mode -1)
-;;   (scroll-bar-mode -1)
-;;   (menu-bar-mode -1))
 ;;
-;; (defun my-non-fullscreen ()
-;;   (interactive)
-;;   (set-frame-parameter nil 'width 82)
-;;   (set-frame-parameter nil 'fullscreen 'fullheight)
-;;   (menu-bar-mode t))
-;;
-;; (defun toggle-fullscreen ()
-;;   (interactive)
-;;   (if (eq (frame-parameter nil 'fullscreen) 'fullboth)
-;;       (my-non-fullscreen)
-;;     (my-fullscreen)))
-;;
-;; (global-set-key (kbd "<f2>") 'toggle-fullscreen)
-
-;; Screen settings
 (add-to-list 'default-frame-alist '(alpha . (0.85 0.85)))
 (menu-bar-mode -1)
 (column-number-mode t)
@@ -74,10 +52,13 @@
 ;; .rb ファイルの1行目にマジックコメントを自動挿入しない
 (setq ruby-insert-encoding-magic-comment nil)
 
+(use-package flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 (use-package ruby-mode)
 (use-package go-mode)
 (use-package js2-mode)
 (use-package rust-mode)
+(use-package flycheck-rust)
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -96,18 +77,13 @@
 (add-hook 'gfm-mode-hook
           '(lambda ()
              (electric-indent-local-mode -1)))
-(use-package dockerfile-mode)
-(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
-(use-package docker-compose-mode)
 
 (use-package undo-tree
   :config
   (global-undo-tree-mode))
-
 (use-package dired-x)
 (use-package linum)
 (global-linum-mode)
-
 (use-package ido)
 (ido-mode t)
 
@@ -265,7 +241,6 @@
 ;; magit shortcut
 (global-set-key (kbd "C-x g") 'magit-status)
 
-(use-package flycheck-rust)
 
 ;; enable racer (rust_code_complete_plugin)
 (add-hook 'rust-mode-hook 'racer-mode)
@@ -281,13 +256,18 @@
 ;; quickrun shortcut
 (global-set-key (kbd "C-x C-q") 'quickrun)
 
-;; ruby-mode-settings
+;; ruby-mode settings
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
+(autoload 'flycheck-mode "flycheck")
+(add-hook 'ruby-mode-hook 'flycheck-mode)
+(setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
+(global-set-key (kbd "C-x n") 'flycheck-next-error)
+(global-set-key (kbd "C-x p") 'flycheck-previous-error)
 
 (use-package auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
@@ -306,3 +286,32 @@
 (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
 ;; 既存スニペットを閲覧・編集する
 (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
+
+(defun my-fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen 'fullboth) ;this makes the frame go fullscreen
+  (tool-bar-mode -1) ;these 3 lines turn off GUI junk
+  (scroll-bar-mode -1)
+  (menu-bar-mode -1))
+
+(defun my-non-fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'width 82)
+  (set-frame-parameter nil 'fullscreen 'fullheight)
+  (menu-bar-mode t)) ;I don't turn tool-bar and scroll-bar back on b/c I never want them
+
+(defun toggle-fullscreen ()
+  (interactive)
+  (if (eq (frame-parameter nil 'fullscreen) 'fullboth)  ;tests if already fullscreened
+      (my-non-fullscreen)
+    (my-fullscreen)))
+
+(global-set-key (kbd "<f2>") 'toggle-fullscreen)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (ruby-end ruby-electric xclip web-mode use-package undo-tree scala-mode ruby-additional racer package-utils org-tree-slide markdown-mode magit js2-refactor js2-highlight-vars init-loader go-mode foreign-regexp flycheck-rust flycheck-golangci-lint exec-path-from-shell ctags-update counsel-etags company auto-highlight-symbol all-the-icons-ivy))))
