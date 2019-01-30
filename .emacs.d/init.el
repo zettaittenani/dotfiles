@@ -37,7 +37,29 @@
 (setq eol-mnemonic-unix "(LF)")
 (setq ns-pop-up-frames nil)
 
+;; if you use GUI
+;; (defun my-fullscreen ()
+;;   (interactive)
+;;   (set-frame-parameter nil 'fullscreen 'fullboth)
+;;   (tool-bar-mode -1)
+;;   (scroll-bar-mode -1)
+;;   (menu-bar-mode -1))
 ;;
+;; (defun my-non-fullscreen ()
+;;   (interactive)
+;;   (set-frame-parameter nil 'width 82)
+;;   (set-frame-parameter nil 'fullscreen 'fullheight)
+;;   (menu-bar-mode t))
+;;
+;; (defun toggle-fullscreen ()
+;;   (interactive)
+;;   (if (eq (frame-parameter nil 'fullscreen) 'fullboth)
+;;       (my-non-fullscreen)
+;;     (my-fullscreen)))
+;;
+;; (global-set-key (kbd "<f2>") 'toggle-fullscreen)
+
+;; Screen settings
 (add-to-list 'default-frame-alist '(alpha . (0.85 0.85)))
 (menu-bar-mode -1)
 (column-number-mode t)
@@ -74,11 +96,13 @@
 (add-hook 'gfm-mode-hook
           '(lambda ()
              (electric-indent-local-mode -1)))
+(use-package dockerfile-mode)
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+(use-package docker-compose-mode)
 
 (use-package undo-tree
   :config
   (global-undo-tree-mode))
-
 
 (use-package dired-x)
 (use-package linum)
@@ -282,24 +306,3 @@
 (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
 ;; 既存スニペットを閲覧・編集する
 (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
-
-(defun my-fullscreen ()
-  (interactive)
-  (set-frame-parameter nil 'fullscreen 'fullboth) ;this makes the frame go fullscreen
-  (tool-bar-mode -1) ;these 3 lines turn off GUI junk
-  (scroll-bar-mode -1)
-  (menu-bar-mode -1))
-
-(defun my-non-fullscreen ()
-  (interactive)
-  (set-frame-parameter nil 'width 82)
-  (set-frame-parameter nil 'fullscreen 'fullheight)
-  (menu-bar-mode t)) ;I don't turn tool-bar and scroll-bar back on b/c I never want them
-
-(defun toggle-fullscreen ()
-  (interactive)
-  (if (eq (frame-parameter nil 'fullscreen) 'fullboth)  ;tests if already fullscreened
-      (my-non-fullscreen)
-    (my-fullscreen)))
-
-(global-set-key (kbd "<f2>") 'toggle-fullscreen)
