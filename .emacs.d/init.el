@@ -74,10 +74,17 @@
 ;; .rb ファイルの1行目にマジックコメントを自動挿入しない
 (setq ruby-insert-encoding-magic-comment nil)
 
+(use-package flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
+(global-set-key (kbd "C-x n") 'flycheck-next-error)
+(global-set-key (kbd "C-x p") 'flycheck-previous-error)
+
 (use-package ruby-mode)
 (use-package go-mode)
 (use-package js2-mode)
 (use-package rust-mode)
+(use-package flycheck-rust)
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -103,11 +110,9 @@
 (use-package undo-tree
   :config
   (global-undo-tree-mode))
-
 (use-package dired-x)
 (use-package linum)
 (global-linum-mode)
-
 (use-package ido)
 (ido-mode t)
 
@@ -265,8 +270,6 @@
 ;; magit shortcut
 (global-set-key (kbd "C-x g") 'magit-status)
 
-(use-package flycheck-rust)
-
 ;; enable racer (rust_code_complete_plugin)
 (add-hook 'rust-mode-hook 'racer-mode)
 (add-hook 'racer-mode-hook 'eldoc-mode)
@@ -281,7 +284,7 @@
 ;; quickrun shortcut
 (global-set-key (kbd "C-x C-q") 'quickrun)
 
-;; ruby-mode-settings
+;; ruby-mode settings
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
