@@ -270,7 +270,6 @@
 ;; magit shortcut
 (global-set-key (kbd "C-x g") 'magit-status)
 
-
 ;; enable racer (rust_code_complete_plugin)
 (add-hook 'rust-mode-hook 'racer-mode)
 (add-hook 'racer-mode-hook 'eldoc-mode)
