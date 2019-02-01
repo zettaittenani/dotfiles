@@ -46,7 +46,9 @@
 ;; Screen settings
 (load-theme 'wombat t)
 (add-to-list 'default-frame-alist '(alpha . (0.85 0.85)))
-(menu-bar-mode nil)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 (column-number-mode t)
 (use-package linum)
 (global-linum-mode)
@@ -57,9 +59,6 @@
 (setq scroll-conservatively 1)
 (setq scroll-margin 20)
 (setq next-screen-context-lines 10)
-
-;; .rb ファイルの1行目にマジックコメントを自動挿入しない
-(setq ruby-insert-encoding-magic-comment nil)
 
 (use-package flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -78,6 +77,7 @@
 (global-set-key (kbd "C-x p") 'flycheck-previous-error)
 
 ;; Mode settings
+(use-package python-mode)
 (use-package ruby-mode)
 (use-package go-mode)
 (add-hook 'go-mode-hook
@@ -120,9 +120,10 @@
 (use-package ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t)
+
 (use-package company)
 (global-company-mode)
-(setq company-idle-delay 0)
+;; (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 2)
 (setq company-selection-wrap-around t)
 (define-key company-active-map (kbd "M-n") nil)
@@ -140,7 +141,8 @@
           (company-select-next)
         (delete-region (- (point) (length company-prefix)) (point))
         (insert candidate))
-      )))
+      )
+    ))
 
 (defun company-complete-common2 ()
   (interactive)
@@ -270,6 +272,7 @@
 (global-set-key (kbd "C-x C-q") 'quickrun)
 
 ;; ruby-mode settings
+(setq ruby-insert-encoding-magic-comment nil)
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
@@ -284,20 +287,18 @@
 
 ;; python-mode settings
 (add-hook 'python-mode-hook (lambda () (auto-complete-mode nil)))
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot t)
 
 ;; if you use GUI
 ;; (defun my-fullscreen ()
 ;;   (interactive)
 ;;   (set-frame-parameter nil 'fullscreen 'fullboth)
-;;   (tool-bar-mode -1)
-;;   (scroll-bar-mode -1)
-;;   (menu-bar-mode -1))
 ;;
 ;; (defun my-non-fullscreen ()
 ;;   (interactive)
 ;;   (set-frame-parameter nil 'width 82)
 ;;   (set-frame-parameter nil 'fullscreen 'fullheight)
-;;   (menu-bar-mode t))
 ;;
 ;; (defun toggle-fullscreen ()
 ;;   (interactive)
