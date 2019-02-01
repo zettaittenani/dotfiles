@@ -85,7 +85,7 @@
             (add-hook 'before-save-hook 'gofmt-before-save)
             (setq tab-width 4)
             (setq indent-tabs-mode t)))
-use-package js2-mode)
+(use-package js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (use-package rust-mode)
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
@@ -152,7 +152,6 @@ use-package js2-mode)
 
 (define-key company-active-map [tab] 'company-complete-common2)
 (define-key company-active-map [backtab] 'company-select-previous)
-
 (set-face-attribute 'company-tooltip nil
                     :foreground "black" :background "lightgrey")
 (set-face-attribute 'company-tooltip-common nil
