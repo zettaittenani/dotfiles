@@ -43,36 +43,14 @@
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
 (define-key global-map (kbd "C-z") 'undo)
 
-;; if you use GUI
-;; (defun my-fullscreen ()
-;;   (interactive)
-;;   (set-frame-parameter nil 'fullscreen 'fullboth)
-;;   (tool-bar-mode -1)
-;;   (scroll-bar-mode -1)
-;;   (menu-bar-mode -1))
-;;
-;; (defun my-non-fullscreen ()
-;;   (interactive)
-;;   (set-frame-parameter nil 'width 82)
-;;   (set-frame-parameter nil 'fullscreen 'fullheight)
-;;   (menu-bar-mode t))
-;;
-;; (defun toggle-fullscreen ()
-;;   (interactive)
-;;   (if (eq (frame-parameter nil 'fullscreen) 'fullboth)
-;;       (my-non-fullscreen)
-;;     (my-fullscreen)))
-;;
-;; (global-set-key (kbd "<f2>") 'toggle-fullscreen)
-
 ;; Screen settings
 (load-theme 'wombat t)
 (add-to-list 'default-frame-alist '(alpha . (0.85 0.85)))
-(menu-bar-mode -1)
+(menu-bar-mode nil)
 (column-number-mode t)
 (global-linum-mode t)
-(blink-cursor-mode 0)
-(show-paren-mode 1)
+(blink-cursor-mode nil)
+(show-paren-mode t)
 (setq show-paren-style 'mixed)
 (setq scroll-conservatively 1)
 (setq scroll-margin 20)
@@ -104,8 +82,8 @@
           (lambda ()
             (add-hook 'before-save-hook 'gofmt-before-save)
             (setq tab-width 4)
-            (setq indent-tabs-mode 1)))
-(use-package js2-mode)
+            (setq indent-tabs-mode t)))
+use-package js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (use-package rust-mode)
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
@@ -118,13 +96,13 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
 (add-hook 'gfm-mode-hook
           '(lambda ()
-             (electric-indent-local-mode -1)))
+             (electric-indent-local-mode nil)))
 (use-package dockerfile-mode)
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 (use-package docker-compose-mode)
 (use-package yasnippet)
 (yas/load-directory "~/.emacs.d/snippets")
-(yas-global-mode 1)
+(yas-global-mode t)
 
 ;; 既存スニペットを挿入する
 (define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
@@ -139,13 +117,15 @@
 (use-package dired-x)
 (use-package linum)
 (global-linum-mode)
+(setq linum-format "%d ")
 (use-package ido)
 (ido-mode t)
+(setq ido-enable-flex-matching t)
 (use-package company)
 (global-company-mode)
-(setq company-idle-delay 0) ; デフォルトは0.5
-(setq company-minimum-prefix-length 2) ; デフォルトは4
-(setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 2)
+(setq company-selection-wrap-around t)
 (define-key company-active-map (kbd "M-n") nil)
 (define-key company-active-map (kbd "M-p") nil)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
@@ -199,7 +179,7 @@
 (define-key company-active-map (kbd "C-i") 'company-complete-selection)
 (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
 
-(ivy-mode 1)
+(ivy-mode t)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
 (global-set-key "\C-s" 'swiper)
@@ -303,3 +283,42 @@
 (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
 (autoload 'robe-ac-setup "robe-ac" "robe auto-complete" nil nil)
 (add-hook 'robe-mode-hook 'robe-ac-setup)
+
+;; python-mode settings
+(add-hook 'python-mode-hook (lambda () (auto-complete-mode nil)))
+
+;; if you use GUI
+;; (defun my-fullscreen ()
+;;   (interactive)
+;;   (set-frame-parameter nil 'fullscreen 'fullboth)
+;;   (tool-bar-mode -1)
+;;   (scroll-bar-mode -1)
+;;   (menu-bar-mode -1))
+;;
+;; (defun my-non-fullscreen ()
+;;   (interactive)
+;;   (set-frame-parameter nil 'width 82)
+;;   (set-frame-parameter nil 'fullscreen 'fullheight)
+;;   (menu-bar-mode t))
+;;
+;; (defun toggle-fullscreen ()
+;;   (interactive)
+;;   (if (eq (frame-parameter nil 'fullscreen) 'fullboth)
+;;       (my-non-fullscreen)
+;;     (my-fullscreen)))
+;;
+;; (global-set-key (kbd "<f2>") 'toggle-fullscreen)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars jedi hive go-mode format-all flymake-python-pyflakes flycheck-rust flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
