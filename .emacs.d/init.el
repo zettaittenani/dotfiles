@@ -62,6 +62,7 @@
 ;; (global-set-key (kbd "<f2>") 'toggle-fullscreen)
 
 ;; Screen settings
+(load-theme 'wombat t)
 (add-to-list 'default-frame-alist '(alpha . (0.85 0.85)))
 (menu-bar-mode -1)
 (column-number-mode t)
