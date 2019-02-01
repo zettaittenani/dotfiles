@@ -22,10 +22,10 @@
 (setq auto-save-default nil)
 (setq delete-auto-save-files t)
 (fset 'yes-or-no-p 'y-or-n-p)
-(add-hook 'before-save-hook
-          '(lambda ()
-             (delete-trailing-whitespace)
-             (indent-region (point-min) (point-max))))
+;; (add-hook 'before-save-hook
+;;           '(lambda ()
+;;              (delete-trailing-whitespace)
+;;              (indent-region (point-min) (point-max)) nil))
 
 ;; Keyboard settings
 (setq kill-whole-line t)
@@ -34,6 +34,9 @@
 (setq eol-mnemonic-mac "(CR)")
 (setq eol-mnemonic-unix "(LF)")
 (setq ns-pop-up-frames nil)
+(cua-mode t)
+(setq cua-enable-cua-keys nil)
+(define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
 
 (defun forward-word+1 ()
   (interactive)
@@ -41,6 +44,7 @@
   (forward-char))
 (define-key global-map (kbd "M-f") 'forward-word+1)
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
+(global-set-key (kbd "C-x C-e") 'eval-buffer)
 (define-key global-map (kbd "C-z") 'undo)
 
 ;; Screen settings
@@ -77,7 +81,7 @@
 (global-set-key (kbd "C-x p") 'flycheck-previous-error)
 
 ;; Mode settings
-(use-package python-mode)
+;; (use-package python-mode)
 (use-package ruby-mode)
 (use-package go-mode)
 (add-hook 'go-mode-hook
@@ -242,19 +246,6 @@
                  command-args)))
     (grep command)))
 
-;; enable cua-mode (which kaizen rectangle mode)
-(cua-mode t)
-(setq cua-enable-cua-keys nil) ; デフォルトキーバインドを無効化
-(define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
-
-;; delete trailing whitespace before save
-(add-hook 'before-save-hook
-          '(lambda ()
-             (delete-trailing-whitespace)
-             ;; 行頭のスペースも消したい場合は (indent-region (point-min) (point-max))
-             (indent-region (point-max))
-             ))
-
 ;; magit shortcut
 (global-set-key (kbd "C-x g") 'magit-status)
 
@@ -264,9 +255,6 @@
 (add-hook 'racer-mode-hook 'company-mode)
 (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 (setq company-tooltip-align-annotations t)
-
-;; eval-buffer shortcut
-(global-set-key (kbd "C-x C-e") 'eval-buffer)
 
 ;; quickrun shortcut
 (global-set-key (kbd "C-x C-q") 'quickrun)
@@ -286,7 +274,16 @@
 (add-hook 'robe-mode-hook 'robe-ac-setup)
 
 ;; python-mode settings
-(add-hook 'python-mode-hook (lambda () (auto-complete-mode nil)))
+;; (add-hook 'python-mode-hook (lambda () (auto-complete-mode nil)))
+;; (use-package jedi-core)
+;; (setq jedi:complete-on-dot t)
+;; (setq jedi:use-shortcuts t)
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (add-to-list 'company-backends 'company-jedi)
+;; (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
+;; (setq flymake-python-pyflakes-executable "flake8")
+;; (custom-set-variables
+;;  '(flymake-python-pyflakes-extra-arguments (quote ("--max-line-length=120" "--ignore=E128"))))
 ;; (add-hook 'python-mode-hook 'jedi:setup)
 ;; (setq jedi:complete-on-dot t)
 
@@ -314,7 +311,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars jedi hive go-mode format-all flymake-python-pyflakes flycheck-rust flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
+    (xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-rust flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
