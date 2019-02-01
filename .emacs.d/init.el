@@ -22,8 +22,19 @@
 (setq auto-save-default nil)
 (setq delete-auto-save-files t)
 (fset 'yes-or-no-p 'y-or-n-p)
+(add-hook 'before-save-hook
+          '(lambda ()
+             (delete-trailing-whitespace)
+             (indent-region (point-min) (point-max))))
 
 ;; Keyboard settings
+(setq kill-whole-line t)
+(setq-default tab-width 2 indent-tabs-mode nil)
+(setq eol-mnemonic-dos "(CRLF)")
+(setq eol-mnemonic-mac "(CR)")
+(setq eol-mnemonic-unix "(LF)")
+(setq ns-pop-up-frames nil)
+
 (defun forward-word+1 ()
   (interactive)
   (forward-word)
@@ -31,13 +42,6 @@
 (define-key global-map (kbd "M-f") 'forward-word+1)
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
 (define-key global-map (kbd "C-z") 'undo)
-
-(setq kill-whole-line t)
-(setq-default tab-width 2 indent-tabs-mode nil)
-(setq eol-mnemonic-dos "(CRLF)")
-(setq eol-mnemonic-mac "(CR)")
-(setq eol-mnemonic-unix "(LF)")
-(setq ns-pop-up-frames nil)
 
 ;; if you use GUI
 ;; (defun my-fullscreen ()
@@ -93,26 +97,25 @@
 (global-set-key (kbd "C-x n") 'flycheck-next-error)
 (global-set-key (kbd "C-x p") 'flycheck-previous-error)
 
+;; Mode settings
 (use-package ruby-mode)
 (use-package go-mode)
-(use-package js2-mode)
-(use-package rust-mode)
-(use-package flycheck-rust)
-(use-package markdown-mode
-  :ensure t
-  :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . gfm-mode)
-         ("\\.markdown\\'" . gfm-mode))
-  :init (setq markdown-command "multimarkdown"))
-
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 (add-hook 'go-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'gofmt-before-save)
             (setq tab-width 4)
             (setq indent-tabs-mode 1)))
+(use-package js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(use-package rust-mode)
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+(use-package flycheck-rust)
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
 (add-hook 'gfm-mode-hook
           '(lambda ()
              (electric-indent-local-mode -1)))
@@ -138,20 +141,11 @@
 (global-linum-mode)
 (use-package ido)
 (ido-mode t)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
 (use-package company)
 (global-company-mode)
 (setq company-idle-delay 0) ; デフォルトは0.5
 (setq company-minimum-prefix-length 2) ; デフォルトは4
 (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
-
 (define-key company-active-map (kbd "M-n") nil)
 (define-key company-active-map (kbd "M-p") nil)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
@@ -288,7 +282,6 @@
 (add-hook 'rust-mode-hook 'racer-mode)
 (add-hook 'racer-mode-hook 'eldoc-mode)
 (add-hook 'racer-mode-hook 'company-mode)
-
 (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 (setq company-tooltip-align-annotations t)
 
@@ -305,10 +298,8 @@
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
-
 (use-package auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
-
 (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
 (autoload 'robe-ac-setup "robe-ac" "robe auto-complete" nil nil)
 (add-hook 'robe-mode-hook 'robe-ac-setup)
