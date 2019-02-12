@@ -21,10 +21,11 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq delete-auto-save-files t)
+(setq-default show-trailing-whitespace t)
 (fset 'yes-or-no-p 'y-or-n-p)
-;; (add-hook 'before-save-hook
-;;           '(lambda ()
-;;              (delete-trailing-whitespace)
+(add-hook 'before-save-hook
+          '(lambda ()
+             (delete-trailing-whitespace)))
 ;;              (indent-region (point-min) (point-max)) nil))
 
 ;; Keyboard settings
