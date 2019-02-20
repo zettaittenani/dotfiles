@@ -1,5 +1,3 @@
-;;; my init.el
-
 (require 'package)
 (add-to-list 'package-archives '("gnu"          . "http://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("melpa"        . "http://melpa.org/packages/") t)
@@ -82,7 +80,6 @@
 (global-set-key (kbd "C-x p") 'flycheck-previous-error)
 
 ;; Mode settings
-;; (use-package python-mode)
 (use-package ruby-mode)
 (use-package go-mode)
 (add-hook 'go-mode-hook
@@ -108,7 +105,7 @@
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 (use-package docker-compose-mode)
 (use-package yasnippet)
-(yas/load-directory "~/.emacs.d/snippets")
+(yas-load-directory "~/.emacs.d/snippets")
 (yas-global-mode t)
 
 ;; 既存スニペットを挿入する
@@ -128,7 +125,7 @@
 
 (use-package company)
 (global-company-mode)
-;; (setq company-idle-delay 0)
+(setq company-idle-delay 0)
 (setq company-minimum-prefix-length 2)
 (setq company-selection-wrap-around t)
 (define-key company-active-map (kbd "M-n") nil)
@@ -275,18 +272,23 @@
 (add-hook 'robe-mode-hook 'robe-ac-setup)
 
 ;; python-mode settings
-;; (add-hook 'python-mode-hook (lambda () (auto-complete-mode nil)))
-;; (use-package jedi-core)
-;; (setq jedi:complete-on-dot t)
-;; (setq jedi:use-shortcuts t)
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (add-to-list 'company-backends 'company-jedi)
-;; (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
-;; (setq flymake-python-pyflakes-executable "flake8")
-;; (custom-set-variables
-;;  '(flymake-python-pyflakes-extra-arguments (quote ("--max-line-length=120" "--ignore=E128"))))
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (setq jedi:complete-on-dot t)
+(use-package python-mode)
+(add-hook 'python-mode-hook (lambda () (auto-complete-mode nil)))
+(use-package jedi-core)
+(setq jedi:complete-on-dot t)
+(setq jedi:use-shortcuts t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(flymake-python-pyflakes-extra-arguments (quote ("--max-line-length=120" "--ignore=E128")))
+ '(package-selected-packages
+   (quote
+    (jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-rust flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
+(add-hook 'python-mode-hook 'jedi:setup)
+(add-to-list 'company-backends 'company-jedi)
+(add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
 
 ;; if you use GUI
 ;; (defun my-fullscreen ()
@@ -305,17 +307,3 @@
 ;;     (my-fullscreen)))
 ;;
 ;; (global-set-key (kbd "<f2>") 'toggle-fullscreen)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-rust flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
