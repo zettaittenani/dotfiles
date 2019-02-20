@@ -289,6 +289,8 @@
 (add-hook 'python-mode-hook 'jedi:setup)
 (add-to-list 'company-backends 'company-jedi)
 (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
+(use-package py-autopep8)
+(add-hook 'before-save-hook 'py-autopep8)
 
 ;; if you use GUI
 ;; (defun my-fullscreen ()
