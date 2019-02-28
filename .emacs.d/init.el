@@ -290,7 +290,8 @@
 (add-to-list 'company-backends 'company-jedi)
 (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
 (use-package py-autopep8)
-(add-hook 'before-save-hook 'py-autopep8)
+(define-key python-mode-map (kbd "C-c i") 'py-autopep8)
+(define-key python-mode-map (kbd "C-c I") 'py-autopep8-region)
 
 ;; if you use GUI
 ;; (defun my-fullscreen ()
