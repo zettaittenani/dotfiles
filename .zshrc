@@ -52,6 +52,12 @@ alias gst="git status"
 alias gl="git log"
 alias gb="git branch"
 
+# tmux settings
+alias tmnew="tmux new -s main"
+alias tsnew="tmux new -s sub"
+alias tm="tmux a -t main"
+alias ts="tmux a -t sub"
+
 # Emacs settings
 alias emacsclient="/usr/local/bin/emacsclient"
 alias ess="emacs --daemon"
