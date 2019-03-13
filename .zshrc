@@ -9,7 +9,7 @@ setopt COMPLETE_IN_WORD
 PROMPT='${vcs_info_msg_0_}$ '
 
 export LANG=ja_JP.UTF-8
-export HISTFILE=${HOME}/.zsh_history
+export HISTFILE=~/.zsh_history
 export HISTSIZE=1000
 export SAVEHIST=100000
 export ZLS_COLORS=$LS_COLORS
