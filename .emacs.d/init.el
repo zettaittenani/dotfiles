@@ -15,6 +15,8 @@
 (prefer-coding-system 'utf-8)
 
 ;; Common settings
+(require 'smartparens-config)
+(smartparens-global-mode t)
 (setq inhibit-startup-message t)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
