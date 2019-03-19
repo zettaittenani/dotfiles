@@ -62,7 +62,7 @@ alias ts="tmux a -t sub"
 alias emacsclient="/usr/local/bin/emacsclient"
 alias ess="emacs --daemon"
 alias esk="emacsclient -e '(kill-emacs)'"
-alias e="emacsclient -nw -c -a emacs -nw"
+alias e="emacsclient -nw -c -a 'emacs -nw'"
 
 # Other aliases
 alias ls='ls -la -G'
