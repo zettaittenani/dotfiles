@@ -259,6 +259,13 @@
 ;; quickrun shortcut
 (global-set-key (kbd "C-x C-q") 'quickrun)
 
+;; if you use python3 command and use python command for python2
+;; (quickrun-add-command "python"
+;;   '((:command . "python3")
+;;     (:exec . "%c %s")
+;;     (:compile-only . "pyflakes %s"))
+;;   :mode 'python-mode)
+
 ;; ruby-mode settings
 (setq ruby-insert-encoding-magic-comment nil)
 (autoload 'ruby-mode "ruby-mode"
