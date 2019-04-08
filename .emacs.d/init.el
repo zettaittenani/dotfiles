@@ -258,6 +258,7 @@
 
 ;; quickrun shortcut
 (global-set-key (kbd "C-x C-q") 'quickrun)
+(global-set-key (kbd "C-x C-Q") 'quickrun-with-arg)
 
 ;; ruby-mode settings
 (setq ruby-insert-encoding-magic-comment nil)
