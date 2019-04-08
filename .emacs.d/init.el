@@ -260,6 +260,13 @@
 (global-set-key (kbd "C-x C-q") 'quickrun)
 (global-set-key (kbd "C-x C-Q") 'quickrun-with-arg)
 
+;; if you use python3 command and use python command for python2
+;; (quickrun-add-command "python"
+;;   '((:command . "python3")
+;;     (:exec . "%c %s")
+;;     (:compile-only . "pyflakes %s"))
+;;   :mode 'python-mode)
+
 ;; ruby-mode settings
 (setq ruby-insert-encoding-magic-comment nil)
 (autoload 'ruby-mode "ruby-mode"
@@ -299,17 +306,17 @@
 ;; if you use GUI
 ;; (defun my-fullscreen ()
 ;;   (interactive)
-;;   (set-frame-parameter nil 'fullscreen 'fullboth)
-;;
+;;   (set-frame-parameter nil 'fullscreen 'fullboth))
+
 ;; (defun my-non-fullscreen ()
 ;;   (interactive)
 ;;   (set-frame-parameter nil 'width 82)
-;;   (set-frame-parameter nil 'fullscreen 'fullheight)
-;;
+;;   (set-frame-parameter nil 'fullscreen 'fullheight))
+
 ;; (defun toggle-fullscreen ()
 ;;   (interactive)
 ;;   (if (eq (frame-parameter nil 'fullscreen) 'fullboth)
 ;;       (my-non-fullscreen)
 ;;     (my-fullscreen)))
-;;
+
 ;; (global-set-key (kbd "<f2>") 'toggle-fullscreen)

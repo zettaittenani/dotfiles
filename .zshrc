@@ -58,11 +58,18 @@ alias tsnew="tmux new -s sub"
 alias tm="tmux a -t main"
 alias ts="tmux a -t sub"
 
-# Emacs settings
+# Emacs settings (for Linux)
 alias emacsclient="/usr/local/bin/emacsclient"
 alias ess="emacs --daemon"
 alias esk="emacsclient -e '(kill-emacs)'"
 alias e="emacsclient -nw -c -a 'emacs -nw'"
+
+# Emacs settings (for Mac)
+# alias emacs="/usr/local/Cellar/emacs/26.1_1/bin/emacs"
+# alias emacsclient="/usr/local/Cellar/emacs/26.1_1/bin/emacsclient"
+# alias ess="emacs --daemon"
+# alias esk="emacsclient -e '(kill-emacs)'"
+# alias e="emacsclient -nw -c -a 'emacs -nw'"
 
 # Other aliases
 alias ls='ls -la -G'
