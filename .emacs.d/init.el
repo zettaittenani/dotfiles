@@ -295,6 +295,10 @@
 (define-key python-mode-map (kbd "C-c i") 'py-autopep8)
 (define-key python-mode-map (kbd "C-c I") 'py-autopep8-region)
 
+;; digdag-mode settings
+;; (add-to-list 'load-path "~/.emacs.d/github/emacs-digdag-mode")
+;; (use-package digdag-mode)
+
 ;; if you use GUI
 ;; (defun my-fullscreen ()
 ;;   (interactive)
