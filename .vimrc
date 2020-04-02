@@ -16,10 +16,10 @@ set re=1
 
 set background=dark
 set termguicolors
-colorscheme deep-space
+colorscheme default
 hi Directory ctermfg=blue
 
-"#####検索設定#####
+"検索設定
 set ignorecase "大文字/小文字の区別なく検索する
 set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
 set wrapscan "検索時に最後まで行ったら最初に戻る
@@ -32,10 +32,6 @@ nmap * *zz
 nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
-
-"jjで normal モードに戻る
-inoremap <silent> jj <ESC>
-inoremap <silent> kk <ESC>
 
 " タブ移動
 nmap L gt
@@ -74,14 +70,12 @@ set backspace=indent,eol,start
 " nerdtree shortcut
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
+" You need: 'git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim'
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
-
 autocmd BufRead,BufNewFile *.slim setfiletype slim
-
 call neobundle#begin(expand('~/.vim/bundle/'))
-
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/unite.vim'
@@ -96,10 +90,9 @@ NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'soramugi/auto-ctags.vim'
 NeoBundle 'derekwyatt/vim-scala'
-
 call neobundle#end()
 
-filetype plugin indent on     " required!
+filetype plugin indent on
 filetype indent on
 
 NeoBundleCheck
@@ -155,25 +148,6 @@ inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 " Close popup by <Space>.
 "inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
-
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplcache_enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplcache_enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
