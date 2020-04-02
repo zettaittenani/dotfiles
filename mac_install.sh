@@ -14,9 +14,9 @@ brew install tmux
 brew cask install emacs
 
 # settings
-install ./zshrc ~/
+install ./.zshrc ~/
 install ./tmux/2.9/.tmux.conf ~/
-install ./vimrc ~/
+install ./.vimrc ~/
 
 # NeoBundle (for Vim) install
 git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
