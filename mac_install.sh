@@ -12,6 +12,7 @@ brew install tmux
 
 # install Emacs (with cocoa)
 brew cask install emacs
+git clone git@github.com:syohex/emacs-digdag-mode.git ~/.emacs.d/github.com/
 install ./.emacs.d/init.el ~/.emacs.d/
 
 # settings
