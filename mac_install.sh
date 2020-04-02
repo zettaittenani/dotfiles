@@ -12,6 +12,7 @@ brew install tmux
 
 # install Emacs (with cocoa)
 brew cask install emacs
+install ./.emacs.d/init.el ~/.emacs.d/
 
 # settings
 install ./.zshrc ~/
