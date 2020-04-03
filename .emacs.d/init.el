@@ -309,12 +309,12 @@
   '((:command . "python3"))
   :override t)
 
-;; digdag-mode settings
-;; (add-to-list 'load-path "~/.emacs.d/github/emacs-digdag-mode")
-;; (use-package digdag-mode)
+digdag-mode settings
+(add-to-list 'load-path "~/.emacs.d/github/emacs-digdag-mode")
+(use-package digdag-mode)
 
-;; sql-mode settings (including *.sql.template)
-;; (add-to-list 'auto-mode-alist '("\\.sql\\.*" . sql-mode))
+sql-mode settings (including *.sql.template)
+(add-to-list 'auto-mode-alist '("\\.sql\\.*" . sql-mode))
 
 ;; if you use GUI
 ;; (defun my-fullscreen ()
