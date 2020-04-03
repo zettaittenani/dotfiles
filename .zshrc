@@ -41,6 +41,7 @@ setopt auto_resume
 setopt auto_list
 setopt auto_cd
 setopt auto_pushd
+export LSCOLORS=GxfxxxxxFxxxxxxxxxgxgx
 
 # Git alias
 alias gg="git grep"
