@@ -59,6 +59,7 @@ RUN pip install \
   slackweb==1.0.5 \
   branca==0.4.0 \
   folium==0.10.1 \
+  apache-airflow==1.10.9
   # tensorflow \
   # torchvision \
   # torchtext
