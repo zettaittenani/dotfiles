@@ -24,4 +24,4 @@ install ./.vimrc ~/
 git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
 # Docker settings
-install ./.docker/daemon.json ~/.docker
+install ./.docker/config.json ~/.docker
