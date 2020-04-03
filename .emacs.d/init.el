@@ -295,7 +295,7 @@
  '(flymake-python-pyflakes-extra-arguments (quote ("--max-line-length=120" "--ignore=E128")))
  '(package-selected-packages
    (quote
-    (jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-rust flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
+    (company-jedi jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-rust flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
 (add-hook 'python-mode-hook 'jedi:setup)
 (add-to-list 'company-backends 'company-jedi)
 (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
@@ -303,12 +303,18 @@
 (define-key python-mode-map (kbd "C-c i") 'py-autopep8)
 (define-key python-mode-map (kbd "C-c I") 'py-autopep8-region)
 
-digdag-mode settings
-(add-to-list 'load-path "~/.emacs.d/github/emacs-digdag-mode")
-(use-package digdag-mode)
+;; for quickrun
+(use-package quickrun)
+(quickrun-add-command "python"
+  '((:command . "python3"))
+  :override t)
 
-sql-mode settings (including *.sql.template)
-(add-to-list 'auto-mode-alist '("\\.sql\\.*" . sql-mode))
+;; digdag-mode settings
+;; (add-to-list 'load-path "~/.emacs.d/github/emacs-digdag-mode")
+;; (use-package digdag-mode)
+
+;; sql-mode settings (including *.sql.template)
+;; (add-to-list 'auto-mode-alist '("\\.sql\\.*" . sql-mode))
 
 ;; if you use GUI
 ;; (defun my-fullscreen ()
@@ -327,3 +333,9 @@ sql-mode settings (including *.sql.template)
 ;;     (my-fullscreen)))
 
 ;; (global-set-key (kbd "<f2>") 'toggle-fullscreen)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
