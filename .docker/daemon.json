@@ -1,3 +1,5 @@
 {
-      "detachKeys": "ctrl-\\"
+  "debug" : true,
+  "experimental" : false,
+  "detachKeys": "ctrl-\\"
 }
