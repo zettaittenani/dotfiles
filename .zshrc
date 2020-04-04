@@ -6,7 +6,8 @@ colors
 
 setopt COMPLETE_IN_WORD
 
-PROMPT='${vcs_info_msg_0_}$ '
+# Prompt settings
+PROMPT="%F{green}$%f "
 
 export LANG=ja_JP.UTF-8
 export HISTFILE=~/.zsh_history
