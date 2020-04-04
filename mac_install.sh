@@ -25,3 +25,8 @@ git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
 # Docker settings
 install ./.docker/config.json ~/.docker
+
+# Other settings
+brew install coreutils
+brew install gawk
+brew link --overwrite gawk

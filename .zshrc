@@ -73,6 +73,11 @@ alias e="emacsclient -nw -c -a 'emacs -nw'"
 # alias e="emacsclient -nw -c -a 'emacs -nw'"
 
 # Other aliases
-alias ls='ls -la -G'
-alias awk='gawk'
 alias dc='docker-compose'
+
+# for Linux
+alias ls='ls -la -G'
+
+# for Mac
+alias ls='gls -la --color'
+alias awk='gawk'
