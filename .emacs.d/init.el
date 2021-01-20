@@ -6,6 +6,9 @@
 (add-to-list 'package-archives '("org"          . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
+;; Rust path settings
+(add-to-list 'exec-path (expand-file-name "~/.cargo/bin"))
+
 ;; Language settings
 (set-locale-environment nil)
 (set-language-environment "Japanese")
@@ -91,7 +94,20 @@
             (setq indent-tabs-mode t)))
 (use-package js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(use-package rust-mode)
+(use-package rust-mode
+  :ensure t
+  :custom rust-format-on-save t)
+(use-package cargo
+  :ensure t
+  :hook (rust-mode . cargo-minor-mode))
+(use-package lsp-mode
+  :ensure t
+  :init (yas-global-mode)
+  :hook (rust-mode . lsp)
+  :bind ("C-c h" . lsp-describe-thing-at-point)
+  :custom (lsp-rust-server 'rls))
+(use-package lsp-ui
+  :ensure t)
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 (use-package flycheck-rust)
 (use-package markdown-mode
