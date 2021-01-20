@@ -293,6 +293,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(flymake-python-pyflakes-extra-arguments (quote ("--max-line-length=120" "--ignore=E128")))
+ '(org-agenda-files nil)
  '(package-selected-packages
    (quote
     (company-jedi jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-rust flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
@@ -315,6 +316,33 @@
 
 ;; sql-mode settings (including *.sql.template)
 (add-to-list 'auto-mode-alist '("\\.sql\\.*" . sql-mode))
+
+;; org-mode settings
+(setq org-directory "~/Dropbox/org/")
+(setq my-org-agenda-dir "~/Dropbox/org/")
+(setq org-agenda-files (list org-directory))
+(setq org-default-notes-file (concat org-directory "main.org"))
+(defun my:org-goto-inbox ()
+  (interactive)
+  (find-file org-default-notes-file))
+(setq org-startup-with-inline-images t)
+(setq org-hide-leading-stars t)
+(setq org-capture-templates
+      '(("t" "Task" entry (file+headline org-default-notes-file "inbox")
+         "** TASK %?\n   CREATED: %U\n")
+        ("i" "Idea" entry (file+headline org-default-notes-file "idea")
+         "** %?\n   CREATED: %U\n")))
+(setq org-clock-into-drawer t)
+(setq org-enforce-todo-dependencies t)
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "WAITING(w)" "NEXT(n)" "IN PROGRESS(i)" "|" "DONE(d)" "SOMEDAY(s)" "CANCEL(c)")))
+(setq org-log-done 'time)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c b") 'org-iswitchb)
+(global-set-key (kbd "C-c n") 'org-insert-heading-respect-content)
 
 ;; if you use GUI
 ;; (defun my-fullscreen ()
