@@ -109,6 +109,7 @@
 (use-package lsp-ui
   :ensure t)
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+;; エラーが出る場合は flycheck-rust-setup を実行する
 (use-package flycheck-rust)
 (use-package markdown-mode
   :ensure t
