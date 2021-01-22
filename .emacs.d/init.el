@@ -91,22 +91,13 @@
             (add-hook 'before-save-hook 'gofmt-before-save)
             (setq tab-width 4)
             (setq indent-tabs-mode t)))
-(use-package js2-mode)
-(use-package rust-mode
-  :ensure t
-  :custom rust-format-on-save t)
-(use-package cargo
-  :ensure t
-  :hook (rust-mode . cargo-minor-mode))
-(use-package lsp-mode
-  :ensure t
-  :init (yas-global-mode)
-  :hook (rust-mode . lsp)
-  :bind ("C-c h" . lsp-describe-thing-at-point)
-  :custom (lsp-rust-server 'rls))
-(use-package lsp-ui
+(use-package js2-mode
+  )
+(use-package rustic
   :ensure t)
-(use-package flycheck-rust)
+(setq-default rustic-format-trigger 'on-save)
+;; rust-analyzer がインストールされていることが前提
+(setq rustic-lsp-server 'rust-analyzer)
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -121,7 +112,7 @@
 (yas-global-mode t)
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rustic-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
@@ -265,11 +256,6 @@
 ;; magit shortcut
 (global-set-key (kbd "C-x g") 'magit-status)
 
-;; enable racer (rust_code_complete_plugin)
-(add-hook 'rust-mode-hook 'racer-mode)
-(add-hook 'racer-mode-hook 'eldoc-mode)
-(add-hook 'racer-mode-hook 'company-mode)
-(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 (setq company-tooltip-align-annotations t)
 
 ;; quickrun shortcut
@@ -309,10 +295,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(flymake-python-pyflakes-extra-arguments (quote ("--max-line-length=120" "--ignore=E128")))
- '(org-agenda-files nil t)
+ '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (flycheck-rust flycheck cargo company-jedi jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
+    (swiper company flycheck cargo company-jedi jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
 (add-hook 'python-mode-hook 'jedi:setup)
 (add-to-list 'company-backends 'company-jedi)
 (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
