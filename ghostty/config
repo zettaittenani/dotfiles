@@ -1,0 +1,6 @@
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = clipboard
+
+# Option キーを Alt として送る(tmux の M-w 等に必要)
+macos-option-as-alt = left

@@ -19,6 +19,7 @@ install ./.emacs.d/init.el ~/.emacs.d/
 install ./.zshrc ~/
 install ./tmux/2.9/.tmux.conf ~/
 install ./.vimrc ~/
+install -D ./ghostty/config ~/.config/ghostty/config
 
 # NeoBundle (for Vim) install
 git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
