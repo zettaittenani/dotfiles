@@ -82,3 +82,9 @@ alias ls='ls -la -G'
 # for Mac
 alias ls='gls -la --color'
 alias awk='gawk'
+
+# Ghostty shell integration (tmux 内でも動くよう明示 source)
+if [[ -r /Applications/Ghostty.app/Contents/Resources/ghostty/shell-integration/zsh/ghostty-integration ]]; then
+  export GHOSTTY_RESOURCES_DIR=/Applications/Ghostty.app/Contents/Resources/ghostty
+  source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
+fi
