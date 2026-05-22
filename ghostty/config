@@ -4,3 +4,22 @@ copy-on-select = clipboard
 
 # Option キーを Alt として送る(tmux の M-w 等に必要)
 macos-option-as-alt = left
+
+# Font
+font-family = "JetBrainsMono Nerd Font Mono"
+font-size = 14
+
+# Theme
+theme = "Catppuccin Mocha"
+
+# Shell integration (zsh) — プロンプト間ジャンプ・実行時間・exit status 等
+shell-integration = zsh
+shell-integration-features = cursor,sudo,title
+
+# Quick terminal: Cmd+` で Quake 風ドロップダウン
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+
+# QoL
+confirm-close-surface = false
+window-save-state = always
+macos-titlebar-style = tabs
