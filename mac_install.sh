@@ -35,3 +35,10 @@ install ./.docker/config.json ~/.docker
 brew install coreutils
 brew install gawk
 brew link --overwrite gawk
+
+# Dev runtime managers and tooling used by ~/.zshrc
+brew install direnv
+brew install jenv
+brew install fnm
+brew install mise
+brew install pnpm
