@@ -25,8 +25,9 @@ install ./tmux/2.9/.tmux.conf ~/
 install ./.vimrc ~/
 install -D ./ghostty/config ~/.config/ghostty/config
 
-# NeoBundle (for Vim) install
-git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+# vim-plug (for Vim) install. Run `:PlugInstall` inside vim afterwards.
+sh -c 'curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # Docker settings
 install ./.docker/config.json ~/.docker
