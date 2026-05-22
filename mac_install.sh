@@ -10,6 +10,10 @@ set -ex
 # install tmux
 brew install tmux
 
+# install Ghostty and its font
+brew install --cask ghostty
+brew install --cask font-jetbrains-mono-nerd-font
+
 # install Emacs (with cocoa)
 brew cask install emacs
 git clone git@github.com:syohex/emacs-digdag-mode.git ~/.emacs.d/github.com/
@@ -19,6 +23,7 @@ install ./.emacs.d/init.el ~/.emacs.d/
 install ./.zshrc ~/
 install ./tmux/2.9/.tmux.conf ~/
 install ./.vimrc ~/
+install -D ./ghostty/config ~/.config/ghostty/config
 
 # NeoBundle (for Vim) install
 git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
