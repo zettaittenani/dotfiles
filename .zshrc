@@ -11,18 +11,20 @@ PROMPT="%F{green}$%f "
 
 export LANG=ja_JP.UTF-8
 export HISTFILE=~/.zsh_history
-export HISTSIZE=1000
+export HISTSIZE=100000
 export SAVEHIST=100000
 export ZLS_COLORS=$LS_COLORS
 setopt hist_ignore_dups
 setopt EXTENDED_HISTORY
 
-source ~/.zsh_plugins/zaw/zaw.zsh
-zstyle ':filter-select:highlight' selected fg=black,bg=white,standout
-zstyle ':filter-select' case-insensitive yes
+if [[ -r ~/.zsh_plugins/zaw/zaw.zsh ]]; then
+  source ~/.zsh_plugins/zaw/zaw.zsh
+  zstyle ':filter-select:highlight' selected fg=black,bg=white,standout
+  zstyle ':filter-select' case-insensitive yes
 
-bindkey '^@' zaw-cdr
-bindkey '^R' zaw-history
+  bindkey '^@' zaw-cdr
+  bindkey '^R' zaw-history
+fi
 # bindkey '^F' zaw-git-files
 # bindkey '^Q' zaw-git-branches
 # bindkey '^P' zaw-process
@@ -60,8 +62,8 @@ alias tsnew="tmux new -s sub"
 alias tm="tmux a -t main"
 alias ts="tmux a -t sub"
 
-# Emacs settings (for Linux)
-alias emacsclient="/usr/local/bin/emacsclient"
+# Emacs settings (Homebrew on Apple Silicon)
+alias emacsclient="/opt/homebrew/bin/emacsclient"
 alias ess="emacs --daemon"
 alias esk="emacsclient -e '(kill-emacs)'"
 alias e="emacsclient -nw -c -a 'emacs -nw'"
