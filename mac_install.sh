@@ -15,7 +15,7 @@ brew install --cask ghostty
 brew install --cask font-jetbrains-mono-nerd-font
 
 # install Emacs (with cocoa)
-brew cask install emacs
+brew install --cask emacs
 git clone git@github.com:syohex/emacs-digdag-mode.git ~/.emacs.d/github.com/
 install ./.emacs.d/init.el ~/.emacs.d/
 
@@ -26,7 +26,7 @@ install ./.vimrc ~/
 install -D ./ghostty/config ~/.config/ghostty/config
 
 # NeoBundle (for Vim) install
-git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
 # Docker settings
 install ./.docker/config.json ~/.docker
