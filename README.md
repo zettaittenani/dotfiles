@@ -35,6 +35,5 @@ bash mac_install.sh
 ├── .zshrc
 ├── ghostty/        # → ~/.config/ghostty/
 ├── tmux/2.9/       # → ~/.tmux.conf (tmux 2.9+)
-├── Dockerfile      # data science notebook image (legacy)
 └── mac_install.sh
 ```
