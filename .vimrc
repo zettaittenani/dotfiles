@@ -12,7 +12,6 @@ set scrolloff=10
 set shiftwidth=2
 set noswapfile "スワップファイルを作らない
 set showcmd
-set re=1
 
 set background=dark
 set termguicolors
