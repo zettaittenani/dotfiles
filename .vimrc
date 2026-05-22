@@ -71,32 +71,30 @@ set backspace=indent,eol,start
 " nerdtree shortcut
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
-" You need: 'git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim'
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
 autocmd BufRead,BufNewFile *.slim setfiletype slim
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neoyank.vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-ref'
-NeoBundle "ctrlpvim/ctrlp.vim"
-NeoBundle 'slim-template/vim-slim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'tpope/vim-rails'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'soramugi/auto-ctags.vim'
-NeoBundle 'derekwyatt/vim-scala'
-call neobundle#end()
+
+" vim-plug: install with
+"   sh -c 'curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+"     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+" Then run :PlugInstall inside vim.
+call plug#begin('~/.vim/plugged')
+Plug 'Shougo/neocomplcache.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neoyank.vim'
+Plug 'thinca/vim-quickrun'
+Plug 'thinca/vim-ref'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'slim-template/vim-slim'
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'soramugi/auto-ctags.vim'
+Plug 'derekwyatt/vim-scala'
+call plug#end()
 
 filetype plugin indent on
 filetype indent on
-
-NeoBundleCheck
 
 " neocomplecache の設定
 " Disable AutoComplPop.
