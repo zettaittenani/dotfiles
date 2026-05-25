@@ -15,7 +15,7 @@ bash mac_install.sh
 ## What gets installed
 
 - Homebrew + tmux + Emacs (cask) + coreutils + gawk
-- Ghostty + JetBrainsMono Nerd Font (cask)
+- Ghostty + Hack Nerd Font (cask)
 - Config files:
   - `~/.zshrc`
   - `~/.vimrc`
