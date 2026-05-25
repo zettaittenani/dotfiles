@@ -12,7 +12,7 @@ brew install tmux
 
 # install Ghostty and its font
 brew install --cask ghostty
-brew install --cask font-jetbrains-mono-nerd-font
+brew install --cask font-hack-nerd-font
 
 # install Emacs (with cocoa)
 brew install --cask emacs
