@@ -10,9 +10,8 @@ set -ex
 # install tmux
 brew install tmux
 
-# install Ghostty and its font
+# install Ghostty (font is macOS built-in Monaco)
 brew install --cask ghostty
-brew install --cask font-hack-nerd-font
 
 # install Emacs (with cocoa)
 brew install --cask emacs

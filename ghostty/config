@@ -6,7 +6,7 @@ copy-on-select = clipboard
 macos-option-as-alt = left
 
 # Font
-font-family = "Hack Nerd Font Mono"
+font-family = "Monaco"
 font-size = 14
 
 # Theme
