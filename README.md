@@ -15,7 +15,7 @@ bash mac_install.sh
 ## What gets installed
 
 - Homebrew + tmux + Emacs (cask) + coreutils + gawk
-- Ghostty + Hack Nerd Font (cask)
+- Ghostty (cask; font is macOS built-in Monaco)
 - Config files:
   - `~/.zshrc`
   - `~/.vimrc`
