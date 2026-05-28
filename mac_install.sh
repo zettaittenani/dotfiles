@@ -42,3 +42,7 @@ brew install jenv
 brew install fnm
 brew install mise
 brew install pnpm
+
+# Tmux companion tooling
+# - workmux: git worktree + tmux window orchestrator
+brew install raine/workmux/workmux
