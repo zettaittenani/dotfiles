@@ -46,3 +46,8 @@ brew install pnpm
 # Tmux companion tooling
 # - workmux: git worktree + tmux window orchestrator
 brew install raine/workmux/workmux
+
+# Rust toolchain (rustup manages stable/nightly toolchains).
+# After install, `rustup default stable` to pull rustc/cargo.
+brew install rustup
+"$(brew --prefix)/opt/rustup/bin/rustup" default stable
