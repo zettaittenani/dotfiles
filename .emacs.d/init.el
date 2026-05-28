@@ -17,14 +17,17 @@
 (prefer-coding-system 'utf-8)
 
 ;; Common settings
-(require 'smartparens-config)
-(smartparens-global-mode t)
+(use-package smartparens
+  :ensure t
+  :config
+  (require 'smartparens-config)
+  (smartparens-global-mode t))
 (setq inhibit-startup-message t)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq delete-auto-save-files t)
 (setq-default show-trailing-whitespace t)
-(fset 'yes-or-no-p 'y-or-n-p)
+(setq use-short-answers t)
 (add-hook 'before-save-hook
           (lambda ()
             (delete-trailing-whitespace)))
@@ -128,6 +131,7 @@
 (use-package undo-tree
   :config
   (global-undo-tree-mode))
+(setq undo-tree-auto-save-history nil)
 (require 'dired-x)
 (require 'ido)
 (ido-mode t)
@@ -272,21 +276,18 @@
 
 ;; ruby-mode settings
 (setq ruby-insert-encoding-magic-comment nil)
-(autoload 'ruby-mode "ruby-mode"
-  "Mode for editing ruby source files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
 (use-package auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
-(autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
-(autoload 'robe-ac-setup "robe-ac" "robe auto-complete" nil nil)
-(add-hook 'robe-mode-hook 'robe-ac-setup)
+(use-package robe
+  :hook (robe-mode . robe-ac-setup))
 
 ;; python-mode settings
 (use-package python-mode)
-(add-hook 'python-mode-hook (lambda () (auto-complete-mode nil)))
+(add-hook 'python-mode-hook (lambda () (auto-complete-mode -1)))
 (use-package jedi)
 (setq jedi:complete-on-dot t)
 (setq jedi:use-shortcuts t)
@@ -295,11 +296,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(flymake-python-pyflakes-extra-arguments (quote ("--max-line-length=120" "--ignore=E128")))
+ '(flymake-python-pyflakes-extra-arguments '("--max-line-length=120" "--ignore=E128"))
  '(org-agenda-files nil)
  '(package-selected-packages
-   (quote
-    (swiper company flycheck cargo company-jedi jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
+   '(json-mode terraform-mode graphql-mode swiper company flycheck cargo company-jedi jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy)))
 
 ;; Install any selected packages that aren't present yet (skips network
 ;; refresh unless something is actually missing).
@@ -322,10 +322,6 @@
 (quickrun-add-command "python"
   '((:command . "python3"))
   :override t)
-
-;; digdag-mode settings
-(add-to-list 'load-path "~/.emacs.d/github/emacs-digdag-mode")
-(use-package digdag-mode)
 
 ;; sql-mode settings (including *.sql.template)
 (add-to-list 'auto-mode-alist '("\\.sql\\.*" . sql-mode))

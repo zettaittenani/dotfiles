@@ -15,7 +15,6 @@ brew install --cask ghostty
 
 # install Emacs (with cocoa)
 brew install --cask emacs
-git clone git@github.com:syohex/emacs-digdag-mode.git ~/.emacs.d/github.com/
 install ./.emacs.d/init.el ~/.emacs.d/
 
 # settings
