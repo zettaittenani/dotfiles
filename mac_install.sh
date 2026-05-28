@@ -47,6 +47,12 @@ brew install pnpm
 # - workmux: git worktree + tmux window orchestrator
 brew install raine/workmux/workmux
 
+# terminal-notifier: クリック可能な macOS 通知 (Claude Code hook から呼ぶ)
+brew install terminal-notifier
+
+# Claude Code 用 hook script (Stop 等の通知でクリック→該当 pane へジャンプ)
+install -D ./claude/hooks/click-to-pane-notify.sh ~/.claude/hooks/click-to-pane-notify.sh
+
 # Rust toolchain (rustup manages stable/nightly toolchains).
 # After install, `rustup default stable` to pull rustc/cargo.
 brew install rustup
