@@ -26,19 +26,9 @@ bash mac_install.sh
   - `~/.config/ghostty/config`
   - `~/.docker/config.json`
   - `~/.claude/hooks/click-to-pane-notify.sh` (clickable notification → jumps Ghostty to the originating tmux pane)
+  - `~/.claude/settings.json` (generated from `claude/settings.json`; `__HOME__` placeholder is replaced with `$HOME` at install time. Existing file is backed up to `settings.json.bak`.)
 
-## Claude Code hooks (manual wiring)
-
-`mac_install.sh` drops the script in `~/.claude/hooks/`, but `~/.claude/settings.json` is hand-edited to wire it up. Add the following under `hooks`:
-
-```json
-"Stop":              [{ "matcher": "", "hooks": [{ "type": "command", "command": "bash ~/.claude/hooks/click-to-pane-notify.sh stop" }] }],
-"Notification":      [{ "matcher": "", "hooks": [{ "type": "command", "command": "bash ~/.claude/hooks/click-to-pane-notify.sh notification" }] }],
-"StopFailure":       [{ "matcher": "", "hooks": [{ "type": "command", "command": "bash ~/.claude/hooks/click-to-pane-notify.sh stop_failure" }] }],
-"PermissionDenied":  [{ "matcher": "", "hooks": [{ "type": "command", "command": "bash ~/.claude/hooks/click-to-pane-notify.sh permission_denied" }] }]
-```
-
-First-run notes:
+## Claude Code notification hook — first-run notes
 
 - macOS shows a notification permission prompt the first time `terminal-notifier` fires. Allow it under System Settings → Notifications.
 - `tmux-agent-sidebar` ships its own desktop notifications; the dotfiles `.tmux.conf` sets `@sidebar_notifications off` so this hook is the only source.
@@ -53,6 +43,7 @@ First-run notes:
 ├── .emacs.d/       # Emacs init.el
 ├── .vimrc
 ├── .zshrc
+├── claude/         # → ~/.claude/ (hooks + settings.json template)
 ├── ghostty/        # → ~/.config/ghostty/
 ├── tmux/2.9/       # → ~/.tmux.conf (tmux 2.9+)
 └── mac_install.sh
