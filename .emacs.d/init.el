@@ -58,7 +58,7 @@
 (scroll-bar-mode -1)
 (column-number-mode t)
 (global-display-line-numbers-mode)
-(blink-cursor-mode nil)
+(blink-cursor-mode 0)
 (show-paren-mode t)
 (setq show-paren-style 'mixed)
 (setq scroll-conservatively 1)
