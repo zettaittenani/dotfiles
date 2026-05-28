@@ -106,7 +106,10 @@
 (use-package dockerfile-mode)
 (use-package docker-compose-mode)
 (use-package yasnippet)
-(yas-load-directory "~/.emacs.d/snippets")
+(let ((snippets-dir (expand-file-name "~/.emacs.d/snippets")))
+  (when (and (file-directory-p snippets-dir)
+             (directory-files snippets-dir nil "^[^.]" t))
+    (yas-load-directory snippets-dir)))
 (yas-global-mode t)
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
