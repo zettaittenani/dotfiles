@@ -128,6 +128,7 @@
 (use-package undo-tree
   :config
   (global-undo-tree-mode))
+(setq undo-tree-auto-save-history nil)
 (require 'dired-x)
 (require 'ido)
 (ido-mode t)
@@ -295,11 +296,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(flymake-python-pyflakes-extra-arguments (quote ("--max-line-length=120" "--ignore=E128")))
+ '(flymake-python-pyflakes-extra-arguments '("--max-line-length=120" "--ignore=E128"))
  '(org-agenda-files nil)
  '(package-selected-packages
-   (quote
-    (swiper company flycheck cargo company-jedi jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
+   '(json-mode terraform-mode graphql-mode swiper company flycheck cargo company-jedi jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy)))
 
 ;; Install any selected packages that aren't present yet (skips network
 ;; refresh unless something is actually missing).
