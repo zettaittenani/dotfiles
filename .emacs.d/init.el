@@ -276,17 +276,14 @@
 
 ;; ruby-mode settings
 (setq ruby-insert-encoding-magic-comment nil)
-(autoload 'ruby-mode "ruby-mode"
-  "Mode for editing ruby source files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
 (use-package auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
-(autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
-(autoload 'robe-ac-setup "robe-ac" "robe auto-complete" nil nil)
-(add-hook 'robe-mode-hook 'robe-ac-setup)
+(use-package robe
+  :hook (robe-mode . robe-ac-setup))
 
 ;; python-mode settings
 (use-package python-mode)
