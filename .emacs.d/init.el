@@ -1,3 +1,7 @@
+;; Suppress the legacy advice-system note fired when packages re-defun
+;; an already-adviced function (e.g. hippie-expand during daemon start).
+(setq ad-redefinition-action 'accept)
+
 (require 'package)
 (add-to-list 'package-archives '("gnu"          . "https://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("melpa"        . "https://melpa.org/packages/") t)
@@ -31,7 +35,6 @@
 (add-hook 'before-save-hook
           (lambda ()
             (delete-trailing-whitespace)))
-;;              (indent-region (point-min) (point-max)) nil))
 
 ;; Keyboard settings
 (setq kill-whole-line t)
@@ -267,13 +270,6 @@
 (global-set-key (kbd "C-x C-q") 'quickrun)
 (global-set-key (kbd "C-x C-Q") 'quickrun-with-arg)
 
-;; if you use python3 command and use python command for python2
-;; (quickrun-add-command "python"
-;;   '((:command . "python3")
-;;     (:exec . "%c %s")
-;;     (:compile-only . "pyflakes %s"))
-;;   :mode 'python-mode)
-
 ;; ruby-mode settings
 (setq ruby-insert-encoding-magic-comment nil)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
@@ -353,23 +349,6 @@
 (global-set-key (kbd "C-c b") 'org-switchb)
 (global-set-key (kbd "C-c n") 'org-insert-heading-respect-content)
 
-;; if you use GUI
-;; (defun my-fullscreen ()
-;;   (interactive)
-;;   (set-frame-parameter nil 'fullscreen 'fullboth))
-
-;; (defun my-non-fullscreen ()
-;;   (interactive)
-;;   (set-frame-parameter nil 'width 82)
-;;   (set-frame-parameter nil 'fullscreen 'fullheight))
-
-;; (defun toggle-fullscreen ()
-;;   (interactive)
-;;   (if (eq (frame-parameter nil 'fullscreen) 'fullboth)
-;;       (my-non-fullscreen)
-;;     (my-fullscreen)))
-
-;; (global-set-key (kbd "<f2>") 'toggle-fullscreen)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
