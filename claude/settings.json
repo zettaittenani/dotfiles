@@ -1,0 +1,70 @@
+{
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/click-to-pane-notify.sh stop"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/click-to-pane-notify.sh notification"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/click-to-pane-notify.sh stop_failure"
+          }
+        ]
+      }
+    ],
+    "PermissionDenied": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/click-to-pane-notify.sh permission_denied"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "example-skills@anthropic-agent-skills": true,
+    "tmux-agent-sidebar@hiroppy": true
+  },
+  "extraKnownMarketplaces": {
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    },
+    "hiroppy": {
+      "source": {
+        "source": "directory",
+        "path": "__HOME__/.tmux/plugins/tmux-agent-sidebar"
+      }
+    }
+  },
+  "skipAutoPermissionPrompt": true
+}
