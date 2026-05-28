@@ -1,8 +1,8 @@
 (require 'package)
-(add-to-list 'package-archives '("gnu"          . "http://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives '("melpa"        . "http://melpa.org/packages/") t)
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives '("org"          . "http://orgmode.org/elpa/") t)
+(add-to-list 'package-archives '("gnu"          . "https://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives '("melpa"        . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("org"          . "https://orgmode.org/elpa/") t)
 (package-initialize)
 
 ;; Rust path settings
@@ -26,8 +26,8 @@
 (setq-default show-trailing-whitespace t)
 (fset 'yes-or-no-p 'y-or-n-p)
 (add-hook 'before-save-hook
-          '(lambda ()
-             (delete-trailing-whitespace)))
+          (lambda ()
+            (delete-trailing-whitespace)))
 ;;              (indent-region (point-min) (point-max)) nil))
 
 ;; Keyboard settings
@@ -57,10 +57,8 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (column-number-mode t)
-(use-package linum)
-(global-linum-mode)
-(setq linum-format "%d ")
-(blink-cursor-mode nil)
+(global-display-line-numbers-mode)
+(blink-cursor-mode 0)
 (show-paren-mode t)
 (setq show-paren-style 'mixed)
 (setq scroll-conservatively 1)
@@ -103,12 +101,15 @@
   :commands (markdown-mode gfm-mode)
   :init (setq markdown-command "multimarkdown"))
 (add-hook 'gfm-mode-hook
-          '(lambda ()
-             (electric-indent-local-mode nil)))
+          (lambda ()
+            (electric-indent-local-mode -1)))
 (use-package dockerfile-mode)
 (use-package docker-compose-mode)
 (use-package yasnippet)
-(yas-load-directory "~/.emacs.d/snippets")
+(let ((snippets-dir (expand-file-name "~/.emacs.d/snippets")))
+  (when (and (file-directory-p snippets-dir)
+             (directory-files snippets-dir nil "^[^.]" t))
+    (yas-load-directory snippets-dir)))
 (yas-global-mode t)
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
@@ -127,8 +128,8 @@
 (use-package undo-tree
   :config
   (global-undo-tree-mode))
-(use-package dired-x)
-(use-package ido)
+(require 'dired-x)
+(require 'ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t)
 
@@ -286,7 +287,7 @@
 ;; python-mode settings
 (use-package python-mode)
 (add-hook 'python-mode-hook (lambda () (auto-complete-mode nil)))
-(use-package jedi-core)
+(use-package jedi)
 (setq jedi:complete-on-dot t)
 (setq jedi:use-shortcuts t)
 (custom-set-variables
@@ -299,8 +300,18 @@
  '(package-selected-packages
    (quote
     (swiper company flycheck cargo company-jedi jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
-(add-hook 'python-mode-hook 'jedi:setup)
-(add-to-list 'company-backends 'company-jedi)
+
+;; Install any selected packages that aren't present yet (skips network
+;; refresh unless something is actually missing).
+(let ((missing (seq-remove #'package-installed-p package-selected-packages)))
+  (when missing
+    (package-refresh-contents)
+    (package-install-selected-packages)))
+
+(when (require 'jedi nil t)
+  (add-hook 'python-mode-hook 'jedi:setup))
+(when (require 'company-jedi nil t)
+  (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
 (use-package py-autopep8)
 (define-key python-mode-map (kbd "C-c i") 'py-autopep8)
@@ -343,7 +354,7 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c b") 'org-iswitchb)
+(global-set-key (kbd "C-c b") 'org-switchb)
 (global-set-key (kbd "C-c n") 'org-insert-heading-respect-content)
 
 ;; if you use GUI
