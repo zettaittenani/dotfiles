@@ -16,6 +16,8 @@ bash mac_install.sh
 
 - Homebrew + tmux + Emacs (cask) + coreutils + gawk
 - Ghostty (cask; font is macOS built-in Monaco)
+- [`workmux`](https://github.com/raine/workmux) — git worktree + tmux window orchestrator
+- [`tmux-agent-sidebar`](https://github.com/hiroppy/tmux-agent-sidebar) — sidebar that tracks Claude Code / Codex / OpenCode panes (installed via `tpm`)
 - Config files:
   - `~/.zshrc`
   - `~/.vimrc`
