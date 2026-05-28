@@ -284,7 +284,7 @@
 ;; python-mode settings
 (use-package python-mode)
 (add-hook 'python-mode-hook (lambda () (auto-complete-mode nil)))
-(use-package jedi-core)
+(use-package jedi)
 (setq jedi:complete-on-dot t)
 (setq jedi:use-shortcuts t)
 (custom-set-variables
