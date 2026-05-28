@@ -125,8 +125,8 @@
 (use-package undo-tree
   :config
   (global-undo-tree-mode))
-(use-package dired-x)
-(use-package ido)
+(require 'dired-x)
+(require 'ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t)
 
