@@ -1,3 +1,7 @@
+;; Suppress the legacy advice-system note fired when packages re-defun
+;; an already-adviced function (e.g. hippie-expand during daemon start).
+(setq ad-redefinition-action 'accept)
+
 (require 'package)
 (add-to-list 'package-archives '("gnu"          . "https://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("melpa"        . "https://melpa.org/packages/") t)
