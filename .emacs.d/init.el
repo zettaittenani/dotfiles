@@ -300,6 +300,14 @@
  '(package-selected-packages
    (quote
     (swiper company flycheck cargo company-jedi jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
+
+;; Install any selected packages that aren't present yet (skips network
+;; refresh unless something is actually missing).
+(let ((missing (seq-remove #'package-installed-p package-selected-packages)))
+  (when missing
+    (package-refresh-contents)
+    (package-install-selected-packages)))
+
 (when (require 'jedi nil t)
   (add-hook 'python-mode-hook 'jedi:setup))
 (when (require 'company-jedi nil t)
