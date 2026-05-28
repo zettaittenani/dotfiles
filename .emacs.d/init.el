@@ -297,8 +297,10 @@
  '(package-selected-packages
    (quote
     (swiper company flycheck cargo company-jedi jedi xclip wgrep web-mode use-package undo-tree tabbar sql-indent slim-mode ruby-electric rubocop robe reverse-theme racer quickrun python-mode py-autopep8 package-utils markdown-mode magit js2-refactor js2-highlight-vars hive go-mode format-all flymake-python-pyflakes flycheck-pyflakes flycheck-pycheckers elpy dockerfile-mode docker-compose-mode ctags-update counsel-etags color-moccur auto-highlight-symbol all-the-icons-ivy))))
-(add-hook 'python-mode-hook 'jedi:setup)
-(add-to-list 'company-backends 'company-jedi)
+(when (require 'jedi nil t)
+  (add-hook 'python-mode-hook 'jedi:setup))
+(when (require 'company-jedi nil t)
+  (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
 (use-package py-autopep8)
 (define-key python-mode-map (kbd "C-c i") 'py-autopep8)
