@@ -27,7 +27,7 @@
 (setq auto-save-default nil)
 (setq delete-auto-save-files t)
 (setq-default show-trailing-whitespace t)
-(fset 'yes-or-no-p 'y-or-n-p)
+(setq use-short-answers t)
 (add-hook 'before-save-hook
           (lambda ()
             (delete-trailing-whitespace)))
