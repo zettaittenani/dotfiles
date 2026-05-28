@@ -26,8 +26,8 @@
 (setq-default show-trailing-whitespace t)
 (fset 'yes-or-no-p 'y-or-n-p)
 (add-hook 'before-save-hook
-          '(lambda ()
-             (delete-trailing-whitespace)))
+          (lambda ()
+            (delete-trailing-whitespace)))
 ;;              (indent-region (point-min) (point-max)) nil))
 
 ;; Keyboard settings
@@ -103,8 +103,8 @@
   :commands (markdown-mode gfm-mode)
   :init (setq markdown-command "multimarkdown"))
 (add-hook 'gfm-mode-hook
-          '(lambda ()
-             (electric-indent-local-mode nil)))
+          (lambda ()
+            (electric-indent-local-mode -1)))
 (use-package dockerfile-mode)
 (use-package docker-compose-mode)
 (use-package yasnippet)
