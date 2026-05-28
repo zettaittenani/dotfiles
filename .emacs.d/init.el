@@ -112,6 +112,7 @@
 (use-package dockerfile-mode)
 (use-package docker-compose-mode)
 (use-package yasnippet)
+(setq yas-verbosity 2)
 (let ((snippets-dir (expand-file-name "~/.emacs.d/snippets")))
   (when (and (file-directory-p snippets-dir)
              (directory-files snippets-dir nil "^[^.]" t))
