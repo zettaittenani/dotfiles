@@ -85,6 +85,9 @@ alias ls='ls -la -G'
 alias ls='gls -la --color'
 alias awk='gawk'
 
+# Rust toolchain (managed by Homebrew's rustup; shims at $brew/opt/rustup/bin)
+export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
+
 # Ghostty shell integration (tmux 内でも動くよう明示 source)
 if [[ -r /Applications/Ghostty.app/Contents/Resources/ghostty/shell-integration/zsh/ghostty-integration ]]; then
   export GHOSTTY_RESOURCES_DIR=/Applications/Ghostty.app/Contents/Resources/ghostty
