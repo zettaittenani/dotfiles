@@ -57,10 +57,8 @@ alias gl="git log"
 alias gb="git branch"
 
 # tmux settings
-alias tmnew="tmux new -s main"
-alias tsnew="tmux new -s sub"
-alias tm="tmux a -t main"
-alias ts="tmux a -t sub"
+alias tmnew="tmux new"
+alias tm="tmux a"
 
 # Emacs settings (Homebrew on Apple Silicon)
 alias emacsclient="/opt/homebrew/bin/emacsclient"
