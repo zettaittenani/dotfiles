@@ -20,6 +20,11 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 colorscheme default
 hi Directory ctermfg=blue
 
+" cursorline はデフォルトの highlight だとシンタックス色とぶつかって読みづらいので
+" 暗めのグレー背景＋装飾なしに固定する
+hi CursorLine   cterm=NONE ctermbg=236 guibg=#3a3a3a
+hi CursorLineNr cterm=bold ctermbg=236 ctermfg=yellow guibg=#3a3a3a guifg=#ffd700
+
 "検索設定
 set ignorecase "大文字/小文字の区別なく検索する
 set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
