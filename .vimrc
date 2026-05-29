@@ -25,6 +25,9 @@ hi Directory ctermfg=blue
 hi CursorLine   cterm=NONE ctermbg=236 guibg=#3a3a3a
 hi CursorLineNr cterm=bold ctermbg=236 ctermfg=yellow guibg=#3a3a3a guifg=#ffd700
 
+" 非カーソル行の行番号は赤がデフォで濃すぎるので控えめなグレーに
+hi LineNr cterm=NONE ctermfg=244 guifg=#888888
+
 "検索設定
 set ignorecase "大文字/小文字の区別なく検索する
 set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
