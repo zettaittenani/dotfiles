@@ -62,3 +62,19 @@ sed "s|__HOME__|${HOME}|g" ./claude/settings.json > ~/.claude/settings.json
 # After install, `rustup default stable` to pull rustc/cargo.
 brew install rustup
 "$(brew --prefix)/opt/rustup/bin/rustup" default stable
+
+# rtk (https://github.com/rtk-ai/rtk): CLI proxy that compresses tool output
+# before it reaches the LLM context. Install once, then wire it into each
+# AI tool's config via `rtk init`. Idempotent — re-running just re-applies
+# the hooks/config, so it's safe on a re-run of this script.
+brew install rtk
+rtk init -g                     # Claude Code / Copilot (default)
+rtk init -g --gemini            # Gemini CLI
+rtk init -g --codex             # Codex (OpenAI)
+rtk init -g --agent cursor      # Cursor
+rtk init -g --agent windsurf    # Windsurf
+rtk init --agent cline          # Cline / Roo Code
+rtk init --agent kilocode       # Kilo Code
+rtk init --agent antigravity    # Google Antigravity
+rtk init -g --agent pi          # Pi
+rtk init --agent hermes         # Hermes
