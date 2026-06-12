@@ -5,6 +5,10 @@ copy-on-select = clipboard
 # Option キーを Alt として送る(tmux の M-w 等に必要)
 macos-option-as-alt = left
 
+# Claude Code / pi の改行を Option+Enter で統一 (LF を送る)
+# macos-option-as-alt のデフォルト挙動(ESC+CR)を上書き
+keybind = alt+enter=text:\n
+
 # Font
 font-family = "Monaco"
 font-size = 14
