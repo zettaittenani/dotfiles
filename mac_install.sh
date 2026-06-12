@@ -67,6 +67,13 @@ mkdir -p ~/.claude
 [ -f ~/.claude/settings.json ] && cp ~/.claude/settings.json ~/.claude/settings.json.bak
 sed "s|__HOME__|${HOME}|g" ./claude/settings.json > ~/.claude/settings.json
 
+# Claude Code のグローバル指示ファイル (CLAUDE.md 及び @import されるドキュメント)を配置。
+# 既存ファイルは .bak に退避してから上書きする。
+for f in CLAUDE.md RTK.md PR_WORKFLOW.md; do
+  [ -f ~/.claude/"$f" ] && cp ~/.claude/"$f" ~/.claude/"$f".bak
+  cp ./claude/"$f" ~/.claude/"$f"
+done
+
 # Rust toolchain (rustup manages stable/nightly toolchains).
 # After install, `rustup default stable` to pull rustc/cargo.
 brew install rustup
