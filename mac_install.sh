@@ -124,7 +124,8 @@ if command -v pi >/dev/null 2>&1; then
     cp "$PI_SETTINGS" "$PI_SETTINGS.bak"
     tmp=$(mktemp)
     jq '.themes = ((.themes // []) + ["~/.pi/themes/dark-bright-dim.json"] | unique)
-        | .theme = "dark-bright-dim"' \
+        | .theme = "dark-bright-dim"
+        | .warnings = ((.warnings // {}) + {anthropicExtraUsage: false})' \
       "$PI_SETTINGS" > "$tmp" && mv "$tmp" "$PI_SETTINGS"
   fi
 fi
