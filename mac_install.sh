@@ -105,4 +105,8 @@ if command -v pi >/dev/null 2>&1; then
   pi install npm:@howaboua/pi-codex-conversion
   # Claude Code style subagents
   pi install npm:@tintinweb/pi-subagents
+  # rpiv: research -> plan -> implement -> validate workflow
+  pi install npm:@juicesharp/rpiv-pi
+  pi install npm:@juicesharp/rpiv-ask-user-question
+  pi install npm:@juicesharp/rpiv-btw
 fi
