@@ -34,6 +34,7 @@ install ./.docker/config.json ~/.docker
 brew install coreutils
 brew install gawk
 brew link --overwrite gawk
+brew install jq
 
 # Dev runtime managers and tooling used by ~/.zshrc
 brew install direnv
@@ -113,4 +114,17 @@ if command -v pi >/dev/null 2>&1; then
   pi install git:github.com/davebcn87/pi-autoresearch
   # Codex-like /goal command
   pi install git:github.com/fitchmultz/pi-codex-goal
+
+  # Custom Pi theme: brighter dim gray for readable "Working..." etc.
+  mkdir -p ~/.pi/themes
+  cp ./pi/themes/dark-bright-dim.json ~/.pi/themes/dark-bright-dim.json
+  # Register theme in ~/.pi/agent/settings.json (merge-safe via jq)
+  PI_SETTINGS=~/.pi/agent/settings.json
+  if [ -f "$PI_SETTINGS" ]; then
+    cp "$PI_SETTINGS" "$PI_SETTINGS.bak"
+    tmp=$(mktemp)
+    jq '.themes = ((.themes // []) + ["~/.pi/themes/dark-bright-dim.json"] | unique)
+        | .theme = "dark-bright-dim"' \
+      "$PI_SETTINGS" > "$tmp" && mv "$tmp" "$PI_SETTINGS"
+  fi
 fi
