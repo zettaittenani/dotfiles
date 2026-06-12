@@ -99,5 +99,6 @@ rtk init --agent hermes         # Hermes
 # `pi install <source>`. The list below mirrors yuku's recommended set.
 # `pi install` is idempotent — re-running just refreshes the package.
 if command -v pi >/dev/null 2>&1; then
-  :
+  # Anthropic Claude Pro/Max OAuth auth for Pi
+  pi install npm:pi-anthropic-oauth
 fi
