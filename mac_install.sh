@@ -109,4 +109,6 @@ if command -v pi >/dev/null 2>&1; then
   pi install npm:@juicesharp/rpiv-pi
   pi install npm:@juicesharp/rpiv-ask-user-question
   pi install npm:@juicesharp/rpiv-btw
+  # Shopify's autonomous experiment loop driver
+  pi install git:github.com/davebcn87/pi-autoresearch
 fi
