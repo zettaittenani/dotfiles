@@ -101,4 +101,6 @@ rtk init --agent hermes         # Hermes
 if command -v pi >/dev/null 2>&1; then
   # Anthropic Claude Pro/Max OAuth auth for Pi
   pi install npm:pi-anthropic-oauth
+  # Codex-friendly tool set (diff-based edits, GPT image gen, web search)
+  pi install npm:@howaboua/pi-codex-conversion
 fi
