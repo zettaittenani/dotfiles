@@ -94,3 +94,23 @@ rtk init --agent kilocode       # Kilo Code
 rtk init --agent antigravity    # Google Antigravity
 rtk init -g --agent pi          # Pi
 rtk init --agent hermes         # Hermes
+
+# Pi (https://pi.dev/): customizable coding agent. Extensions are managed via
+# `pi install <source>`. The list below mirrors yuku's recommended set.
+# `pi install` is idempotent — re-running just refreshes the package.
+if command -v pi >/dev/null 2>&1; then
+  # Anthropic Claude Pro/Max OAuth auth for Pi
+  pi install npm:pi-anthropic-oauth
+  # Codex-friendly tool set (diff-based edits, GPT image gen, web search)
+  pi install npm:@howaboua/pi-codex-conversion
+  # Claude Code style subagents
+  pi install npm:@tintinweb/pi-subagents
+  # rpiv: research -> plan -> implement -> validate workflow
+  pi install npm:@juicesharp/rpiv-pi
+  pi install npm:@juicesharp/rpiv-ask-user-question
+  pi install npm:@juicesharp/rpiv-btw
+  # Shopify's autonomous experiment loop driver
+  pi install git:github.com/davebcn87/pi-autoresearch
+  # Codex-like /goal command
+  pi install git:github.com/fitchmultz/pi-codex-goal
+fi
