@@ -49,8 +49,17 @@ brew install raine/workmux/workmux
 # terminal-notifier: クリック可能な macOS 通知 (Claude Code hook から呼ぶ)
 brew install terminal-notifier
 
-# Claude Code 用 hook script (Stop 等の通知でクリック→該当 pane へジャンプ)
-install -D ./claude/hooks/click-to-pane-notify.sh ~/.claude/hooks/click-to-pane-notify.sh
+# Claude Code 用 hook / statusLine スクリプトを実行権限付きで配置する。
+# 注: GNU install の -D は BSD(macOS 標準) install では使えないため mkdir+cp で配置する。
+mkdir -p ~/.claude/hooks
+# Stop 等の通知でクリック→該当 pane へジャンプ
+cp ./claude/hooks/click-to-pane-notify.sh ~/.claude/hooks/click-to-pane-notify.sh
+# statusLine で ccusage のトークン/コストを常時表示
+cp ./claude/hooks/ccusage-statusline.sh ~/.claude/hooks/ccusage-statusline.sh
+chmod +x ~/.claude/hooks/click-to-pane-notify.sh ~/.claude/hooks/ccusage-statusline.sh
+# ccusage 本体 (未導入なら入れる。statusLine の表示を高速化する。npm が無ければ
+# ラッパが npx フォールバックするのでスキップしても動作はする)
+command -v npm >/dev/null 2>&1 && npm install -g ccusage
 
 # Claude Code settings.json (テンプレ内 __HOME__ を実 $HOME に展開して配置)
 # 既存ファイルがあれば .bak に退避してから上書き

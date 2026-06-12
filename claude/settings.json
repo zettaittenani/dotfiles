@@ -48,6 +48,11 @@
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/hooks/ccusage-statusline.sh",
+    "padding": 0
+  },
   "enabledPlugins": {
     "example-skills@anthropic-agent-skills": true,
     "tmux-agent-sidebar@hiroppy": true
