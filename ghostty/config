@@ -16,6 +16,10 @@ font-size = 14
 # Theme
 theme = "Catppuccin Mocha"
 
+# pi の "Working..." など dim gray で出るテキストが見づらいため
+# bright black (ANSI 8) を Catppuccin Mocha の Surface2 から Overlay1 に明るくする
+palette = 8=#7f849c
+
 # Shell integration (zsh) — プロンプト間ジャンプ・実行時間・exit status 等
 shell-integration = zsh
 shell-integration-features = cursor,sudo
