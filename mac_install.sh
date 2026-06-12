@@ -94,3 +94,10 @@ rtk init --agent kilocode       # Kilo Code
 rtk init --agent antigravity    # Google Antigravity
 rtk init -g --agent pi          # Pi
 rtk init --agent hermes         # Hermes
+
+# Pi (https://pi.dev/): customizable coding agent. Extensions are managed via
+# `pi install <source>`. The list below mirrors yuku's recommended set.
+# `pi install` is idempotent — re-running just refreshes the package.
+if command -v pi >/dev/null 2>&1; then
+  :
+fi
