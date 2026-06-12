@@ -111,4 +111,6 @@ if command -v pi >/dev/null 2>&1; then
   pi install npm:@juicesharp/rpiv-btw
   # Shopify's autonomous experiment loop driver
   pi install git:github.com/davebcn87/pi-autoresearch
+  # Codex-like /goal command
+  pi install git:github.com/fitchmultz/pi-codex-goal
 fi
