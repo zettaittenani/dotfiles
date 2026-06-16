@@ -23,8 +23,21 @@ When the user asks to create a PR, follow this workflow regardless of the reposi
    - **Title**: same as the first empty commit message.
    - **Description**: structured (e.g. Summary / Background / Change / Verification).
 6. **Mark the PR as ready for review** (`gh pr ready <num>`) without waiting for explicit approval.
-7. **Merge the PR** (`gh pr merge <num> --squash --delete-branch`) without waiting for explicit approval.
-8. **Return to the default branch** and pull (or confirm fast-forward).
+7. **Handle the CodeRabbit review** (see the dedicated section below) before merging.
+8. **Merge the PR** (`gh pr merge <num> --squash --delete-branch`) without waiting for explicit approval.
+9. **Return to the default branch** and pull (or confirm fast-forward).
+
+## CodeRabbit review handling
+
+After the PR is ready, CodeRabbit posts an automated review. Address it before merging.
+
+- Wait for the review to finish (`gh pr checks <num>` shows CodeRabbit "Review completed"). List inline comments with `gh api repos/<owner>/<repo>/pulls/<num>/comments`.
+- Handle **each** inline comment individually:
+  - **If you address it**: make the fix in a **separate commit** (one logical fix per comment, Conventional Commits), push, then reply inline with `Fixed: <commit URL>` via `gh api repos/<owner>/<repo>/pulls/<num>/comments/<comment_id>/replies -f body=...`.
+  - **If you do NOT address it**: reply inline with a clear reason why it is intentionally skipped.
+- Commit fixes to the **same PR branch** — never open a separate PR for CodeRabbit fixes.
+- Inline replies may be written in the language of the review (Japanese is fine); commit messages / PR title / description stay English per the Language rule.
+- After all comments are handled and CI is green again, proceed to merge.
 
 ## Notes
 
