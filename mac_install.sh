@@ -68,11 +68,15 @@ mkdir -p ~/.claude
 [ -f ~/.claude/settings.json ] && cp ~/.claude/settings.json ~/.claude/settings.json.bak
 sed "s|__HOME__|${HOME}|g" ./claude/settings.json > ~/.claude/settings.json
 
-# Claude Code のグローバル指示ファイル (CLAUDE.md 及び @import されるドキュメント)を配置。
-# 既存ファイルは .bak に退避してから上書きする。
+# Claude Code のグローバル指示ファイル (CLAUDE.md 及び @import されるドキュメント)を symlink で配置。
+# 静的な md なので symlink にし、dotfiles 側を編集すれば即 ~/.claude に反映されるようにする。
+# 既存が実ファイル(非 symlink)なら一度だけ .bak に退避してから symlink を張る。リラン可。
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 for f in CLAUDE.md RTK.md PR_WORKFLOW.md; do
-  [ -f ~/.claude/"$f" ] && cp ~/.claude/"$f" ~/.claude/"$f".bak
-  cp ./claude/"$f" ~/.claude/"$f"
+  if [ -f ~/.claude/"$f" ] && [ ! -L ~/.claude/"$f" ]; then
+    cp ~/.claude/"$f" ~/.claude/"$f".bak
+  fi
+  ln -sf "${DOTFILES_DIR}/claude/$f" ~/.claude/"$f"
 done
 
 # Rust toolchain (rustup manages stable/nightly toolchains).
