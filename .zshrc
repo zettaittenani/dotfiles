@@ -4,6 +4,11 @@ compinit
 autoload -Uz colors
 colors
 
+# Pin the emacs keymap. With EDITOR=vim set, zsh auto-selects the vi
+# keymap where ^P / ^N fall through to self-insert instead of moving
+# through history — force emacs to keep the readline-style bindings.
+bindkey -e
+
 setopt COMPLETE_IN_WORD
 
 # Prompt settings
