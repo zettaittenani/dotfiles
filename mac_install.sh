@@ -133,3 +133,9 @@ if command -v pi >/dev/null 2>&1; then
       "$PI_SETTINGS" > "$tmp" && mv "$tmp" "$PI_SETTINGS"
   fi
 fi
+
+# Git: enable --update-refs by default. With this on, `git rebase` advances
+# every stacked / intermediate branch ref that sits on the range being
+# rebased, so stacked-branch workflows don't need `--update-refs` on each
+# invocation. Idempotent — re-running just re-sets the same key.
+git config --global rebase.updateRefs true
