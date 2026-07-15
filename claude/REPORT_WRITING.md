@@ -24,6 +24,7 @@ After the TL;DR, structure the body so the following five questions are answered
 - Prefer tables for any comparison across ≥2 variants or ≥2 metrics.
 - When numbers are noisy, report mean **and** spread (sd / min-max / iter count). A single-run number without spread is not evidence of a difference.
 - Cite the raw data location (file path, run ID, dashboard URL) so a reader can verify.
+- **Use absolute paths** whenever a file is referenced (e.g. `/Users/foo/project/src/bar.py:42`, not `src/bar.py:42`). Readers of the report may be in a different working directory, and relative paths lose meaning once the report is pasted into Slack, a PR description, or read again later.
 
 ## Style
 
