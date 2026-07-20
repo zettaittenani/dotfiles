@@ -10,7 +10,7 @@ macos-option-as-alt = left
 keybind = alt+enter=text:\n
 
 # Font
-font-family = "Monaco"
+font-family = "Menlo"
 font-size = 14
 
 # Theme
