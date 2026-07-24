@@ -10,7 +10,12 @@ macos-option-as-alt = left
 keybind = alt+enter=text:\n
 
 # Font
+# Menlo has no CJK glyphs; without an explicit JP fallback CoreText picks
+# a monospace-with-JP font like HackGen Console NF (from brew cask
+# font-hackgen-nerd) over Hiragino Sans (proportional). Pin Hiragino Sans
+# here so Japanese renders in the iTerm2-default style.
 font-family = "Menlo"
+font-family = "Hiragino Sans"
 font-size = 14
 
 # Theme
