@@ -15,7 +15,7 @@ keybind = alt+enter=text:\n
 # font-hackgen-nerd) over Hiragino Sans (proportional). Pin Hiragino Sans
 # here so Japanese renders in the iTerm2-default style.
 font-family = "Menlo"
-font-family = "Hiragino Sans"
+font-family = "Hiragino Sans W4"
 font-size = 14
 
 # Theme
