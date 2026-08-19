@@ -43,7 +43,7 @@ bash mac_install.sh
 ├── .emacs.d/       # Emacs init.el
 ├── .vimrc
 ├── .zshrc
-├── claude/         # → ~/.claude/ (hooks + settings.json template)
+├── claude/         # → ~/.claude/ (global instruction *.md symlinks + hooks + settings.json template)
 ├── ghostty/        # → ~/.config/ghostty/
 ├── tmux/2.9/       # → ~/.tmux.conf (tmux 2.9+)
 └── mac_install.sh
